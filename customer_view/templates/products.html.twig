@@ -1,0 +1,154 @@
+{% extends "home.html.twig" %}
+
+{% block CAROUSEL %}
+    <section id="advertisement">
+        <div class="container">
+            <img src="images/ad2.png" alt="" />
+        </div>
+    </section>
+{% endblock %}
+
+{% block FEATUREITEMS %}
+    <div class="features_items"><!--features_items-->
+        <h2 class="title text-center">Features Items</h2>
+        {% for x in furniture %}
+            <div class="col-sm-4">
+                <div class="product-image-wrapper">
+                    <div class="single-products">
+                        <div class="productinfo text-center">
+                            <img src="{{ x.image }}" alt="" />
+                            <h2>${{ x.cost }}.00</h2>
+                            <p>{{ x.brand_name }} {{ x.name }} {{ x.furniture_type }}</p>
+                            <a href="{{ currentPage }}?func=1&id={{ x.furniture_id }}" class="btn btn-default add-to-cart">
+                                <i class="fa fa-shopping-cart"></i>Add to cart</a>
+                        </div>
+                    </div>
+                    <div class="choose">
+                        <ul class="nav nav-pills nav-justified">
+                            <li><a href="product_details.php?cmd=1&fid={{ x.furniture_id }}"><i class="fa fa-eye"></i>View Details</a></li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        {% endfor %}
+
+    </div><!--features_items-->
+{% endblock %}
+
+{% block PAGINATION %}
+    <div class='panel-footer'>
+        {% if totalPages > 0 %}
+            <ul class='pagination pagination-lg' id="pagination">
+                {#{% for i in 1..totalPages %}#}
+
+                {#{% if loop.first %}#}
+                {% if page == 1 %}
+                    <li class="prev disabled">
+                        <a>
+                            <i class="fa fa-angle-double-left"></i>
+                        </a>
+                    </li>
+                    <li class="prev disabled">
+                        <a>
+                            <i class="fa fa-angle-left"></i>
+                        </a>
+                    </li>
+                {% else %}
+                    <li class="prev">
+                        {% if stname is not defined %}
+                        <a href='products.php?page={{ 1 }}&vt={{ vt }}&{{ pType }}={{ pageIndex }}'>
+                            <i class="fa fa-angle-double-left"></i>
+                        </a>
+                        {% else %}
+                            <a href='products.php?page={{ 1 }}&vt={{ vt }}&{{ pType }}={{ pageIndex }}&{{ stname }}={{ stNameIndex }}&{{ stcat }}={{ stCatIndex }}'>
+                                <i class="fa fa-angle-double-left"></i>
+                            </a>
+                        {% endif %}
+                    </li>
+                    <li class="prev">
+                    {% if stname is not defined %}
+                        <a href='products.php?page={{ page - 1 }}&vt={{ vt }}&{{ pType }}={{ pageIndex }}'>
+                            <i class="fa fa-angle-left"></i>
+                        </a>
+                    {% else %}
+                        <a href='products.php?page={{ page - 1 }}&vt={{ vt }}&{{ pType }}={{ pageIndex }}&{{ stname }}={{ stNameIndex }}&{{ stcat }}={{ stCatIndex }}'>
+                            <i class="fa fa-angle-left"></i>
+                        </a>
+                    {% endif %}
+                    </li>
+                {% endif %}
+            </ul>
+            {#{% endif %}#}
+
+            <ul class="pagination pagination-lg">
+                {% for i in page..page+4 %}
+                    {% if i >= 1 and i <= totalPages %}
+                        <li class="prev">
+                        {% if stname is not defined %}
+                            <a href='products.php?page={{ i}}&vt={{ vt }}&{{ pType }}={{ pageIndex }}'>
+                                {{ i }}
+                            </a>
+                        {% else %}
+                            <a href='products.php?page={{ i}}&vt={{ vt }}&{{ pType }}={{ pageIndex }}&{{ stname }}={{ stNameIndex }}&{{ stcat }}={{ stCatIndex }}'>
+                                {{ i }}
+                            </a>
+                        {% endif %}
+                        </li>
+                    {% endif %}
+                {% endfor %}
+            </ul>
+
+            {#{% if loop.last %}#}
+            <ul class="pagination pagination-lg">
+                {% if page == totalPages %}
+                    <li class="next disabled">
+                        <a>
+                            <i class="fa fa-angle-right"></i>
+                        </a>
+                    </li>
+                    <li class="next disabled">
+                        <a>
+                            <i class="fa fa-angle-double-right"></i>
+                        </a>
+                    </li>
+                {% else %}
+
+                    <li class="next">
+                    {% if stname is not defined %}
+                        <a href='products.php?page={{ page + 1 }}&vt={{ vt }}&{{ pType }}={{ pageIndex }}'>
+                            <i class="fa fa-angle-right"></i>
+                        </a>
+                    {% else %}
+                        <a href='products.php?page={{ page + 1 }}&vt={{ vt }}&{{ pType }}={{ pageIndex }}&{{ stname }}={{ stNameIndex }}&{{ stcat }}={{ stCatIndex }}'>
+                            <i class="fa fa-angle-right"></i>
+                        </a>
+                    {% endif %}
+                    </li>
+                    <li class="next">
+                    {% if stname is not defined %}
+                        <a href='products.php?page={{ totalPages }}&vt={{ vt }}&{{ pType }}={{ pageIndex }}'>
+                            <i class="fa fa-angle-double-right"></i>
+                        </a>
+                    {% else %}
+                        <a href='products.php?page={{ totalPages }}&vt={{ vt }}&{{ pType }}={{ pageIndex }}&{{ stname }}={{ stNameIndex }}&{{ stcat }}={{ stCatIndex }}'>
+                            <i class="fa fa-angle-double-right"></i>
+                        </a>
+                    {% endif %}
+                    </li>
+                {% endif %}
+            </ul>
+            {#{% endif %}#}
+
+            {#{% endfor %}#}
+            </ul>
+        {% endif %}
+
+
+        <div class='pull-right' id="paginationResult">
+            Page <a>{{ page }}</a> out of <a>{{ totalPages }}</a>
+        </div>
+    </div>
+{% endblock %}
+
+{% block CATEGORYTAB %}
+{% endblock %}
