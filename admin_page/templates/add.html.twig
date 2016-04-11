@@ -1,0 +1,154 @@
+{% extends 'home.html.twig' %}
+
+{% block MESSAGE %}
+    {{ message }}
+{% endblock %}
+
+{% block MAINROW %}
+    <div class="row">
+    <div class="col-lg-8 col-xs-12">
+    <div class="box box-primary">
+        <div class="box-header with-border">
+            <h3 class="box-title">Quick Example</h3>
+        </div><!-- /.box-header -->
+        <!-- form start -->
+        <form role="form" action="../../controller/furniture_controller.php" method="post">
+            <div class="box-body">
+                <input type="hidden" value="1" name="cmd">
+                <div class="form-group">
+                    <label for="exampleInputEmail1">Name</label>
+                    <input type="text" required class="form-control" id="exampleInputEmail1" name="name" placeholder="Enter name">
+                </div>
+
+                <!-- select -->
+                <div class="form-group">
+                    <label>Brand</label>
+                    <select class="form-control" name="brand" required>
+                        {% for x in brands %}
+                            <option value="{{ x.brand_id }}">{{ x.brand_name }}</option>
+                        {% endfor %}
+                    </select>
+                </div>
+
+                <!-- select -->
+                <div class="form-group">
+                    <label>Category</label>
+                    <select class="form-control" name="cat" required>
+                        {% for x in categories %}
+                        <option value="{{ x.category_id }}">{{ x.category }}</option>
+                            {% endfor %}
+                    </select>
+                </div>
+
+                <!-- select -->
+                <div class="form-group">
+                    <label>Furniture Type</label>
+                    <select class="form-control" name="type" required>
+                        {% for x in types %}
+                        <option value="{{ x.furniture_type_id }}">{{ x.furniture_type }}</option>
+                            {% endfor %}
+                    </select>
+                </div>
+
+                <div class="form-group">
+                    <label for="exampleInputPassword1">Cost</label>
+                    <input type="number" required class="form-control" id="exampleInputPassword1" name="cost" placeholder="Cost">
+                </div>
+                <!-- textarea -->
+                <div class="form-group">
+                    <label>Description</label>
+                    <textarea class="form-control" required rows="3" name="desc" placeholder="Enter Description"></textarea>
+                </div>
+
+                <div class="form-group">
+                    <label for="exampleInputPassword1">Quantity</label>
+                    <input type="number" class="form-control" required id="exampleInputPassword1" name="onhand" placeholder="Quantity">
+                </div>
+            </div><!-- /.box-body -->
+
+            <div class="box-footer">
+                <button type="reset" class="btn btn-primary">Cancel</button>
+                <button type="submit" class="btn btn-primary">Add Inventory</button>
+            </div>
+        </form>
+
+        <form id="uploadimage" action="" method="post" enctype="multipart/form-data">
+            <div id="image_preview"><img style="width: 300px; height: auto" class="col-sm-12" id="previewing" src="noimage.jpg" /></div>
+            <hr id="line">
+            <div class="form-group" id="selectImage">
+                <label>Select Your Image</label><br/>
+                <input type="file" name="file" id="file" required />
+                <div id="message"></div>
+                <!--                                            <input type="submit" value="Upload" class="submit" />-->
+                <button type="submit" class="btn btn-app submit primary">
+                    <i class="fa fa-upload"></i> Upload
+                </button>
+            </div>
+        </form>
+
+    </div><!-- /.box -->
+    </div>
+    <div class="col-lg-4 col-xs-12">
+        <div class="box box-primary">
+            <div class="box-header with-border">
+                <h3 class="box-title">Recently Added Products</h3>
+                <div class="box-tools pull-right">
+                    <button class="btn btn-box-tool" data-widget="collapse"><i class="fa fa-minus"></i></button>
+                    <button class="btn btn-box-tool" data-widget="remove"><i class="fa fa-times"></i></button>
+                </div>
+            </div><!-- /.box-header -->
+            <div class="box-body">
+                <ul class="products-list product-list-in-box">
+                    <li class="item">
+                        <div class="product-img">
+                            <img src="dist/img/default-50x50.gif" alt="Product Image">
+                        </div>
+                        <div class="product-info">
+                            <a href="javascript::;" class="product-title">Samsung TV <span class="label label-warning pull-right">$1800</span></a>
+                        <span class="product-description">
+                          Samsung 32" 1080p 60Hz LED Smart HDTV.
+                        </span>
+                        </div>
+                    </li><!-- /.item -->
+                    <li class="item">
+                        <div class="product-img">
+                            <img src="dist/img/default-50x50.gif" alt="Product Image">
+                        </div>
+                        <div class="product-info">
+                            <a href="javascript::;" class="product-title">Bicycle <span class="label label-info pull-right">$700</span></a>
+                        <span class="product-description">
+                          26" Mongoose Dolomite Men's 7-speed, Navy Blue.
+                        </span>
+                        </div>
+                    </li><!-- /.item -->
+                    <li class="item">
+                        <div class="product-img">
+                            <img src="dist/img/default-50x50.gif" alt="Product Image">
+                        </div>
+                        <div class="product-info">
+                            <a href="javascript::;" class="product-title">Xbox One <span class="label label-danger pull-right">$350</span></a>
+                        <span class="product-description">
+                          Xbox One Console Bundle with Halo Master Chief Collection.
+                        </span>
+                        </div>
+                    </li><!-- /.item -->
+                    <li class="item">
+                        <div class="product-img">
+                            <img src="dist/img/default-50x50.gif" alt="Product Image">
+                        </div>
+                        <div class="product-info">
+                            <a href="javascript::;" class="product-title">PlayStation 4 <span class="label label-success pull-right">$399</span></a>
+                        <span class="product-description">
+                          PlayStation 4 500GB Console (PS4)
+                        </span>
+                        </div>
+                    </li><!-- /.item -->
+                </ul>
+            </div><!-- /.box-body -->
+            <div class="box-footer text-center">
+                <a href="javascript::;" class="uppercase">View All Products</a>
+            </div><!-- /.box-footer -->
+        </div><!-- /.box -->
+    </div>
+    </div>
+{% endblock %}

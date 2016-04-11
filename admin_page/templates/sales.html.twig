@@ -1,0 +1,85 @@
+{% extends 'home.html.twig' %}
+
+{% block MESSAGE %}
+    {{ message }}
+{% endblock %}
+
+ {% block INFOBOX %}
+ {% endblock %}
+
+
+{% block MAINROW %}
+    <!-- Main row -->
+    <div class="row">
+
+        <div class="col-xs-12">
+            <div class="box">
+                <div class="box-header">
+                    <h3 class="box-title">Sales</h3>
+                    <div class="box-tools">
+                        <div class="input-group" style="width: 150px;">
+                            <input type="text" name="table_search" class="form-control input-sm pull-right" placeholder="Search">
+                            <div class="input-group-btn">
+                                <button class="btn btn-sm btn-default"><i class="fa fa-search"></i></button>
+                            </div>
+                        </div>
+                    </div>
+                </div><!-- /.box-header -->
+                <div class="box-body table-responsive no-padding">
+                    <table class="table table-hover">
+                        <tr>
+                            <th>Receipt ID</th>
+                            <th>Product</th>
+                            <th>Recipient</th>
+                            <th>Recipient Info</th>
+                            <th>Qty</th>
+                            <th>Total Cost</th>
+                            <th>Date Ordered</th>
+                            <th>Date Delivered</th>
+                        </tr>
+
+                        {% for x in sales %}
+                            <tr>
+                                <td>{{ x.receipt_id }}</td>
+                                <td>{{ x.product }}</td>
+                                <td>{{ x.recepient }}</td>
+                                <td>{{ x.shipping_address }}</td>
+                                <td>{{ x.qty }}</td>
+                                <td>${{ x.cost }}.00</td>
+                                <td>{{ x.date_ordered }}</td>
+                                <td>{{ x.date_paid }}</td>
+                            </tr>
+                        {% endfor %}
+                    </table>
+                    <div>
+                        <h4 class="col-xs-3">Totals</h4>
+                        <h4 class="col-xs-3">${{ totalSales }}</h4>
+                    </div>
+                </div><!-- /.box-body -->
+                <div class="box-footer clearfix">
+                    <ul class="pagination pagination-sm no-margin pull-right">
+                        {% if  totalPages > 0 %}
+                            {% if page == 1 %}
+                                <li><a href="#" class="disabled">&laquo;</a></li>
+                            {% else %}
+                                <li><a href="sales.php?page={{ page - 1  }}" class="disabled">&laquo;</a></li>
+                            {% endif %}
+
+                            {% for i in page..page+3 %}
+                                {% if i >= 1 and i <= totalPages %}
+                                    <li><a href="sales.php?page={{ i }}">{{ i }}</a></li>
+                                {% endif %}
+                            {% endfor %}
+
+                            {% if page == totalPages %}
+                                <li><a href="" class="disabled">&raquo;</a></li>
+                            {% else %}
+                                <li><a href="sales.php?page={{ page + 1 }}" class="disabled">&raquo;</a></li>
+                            {% endif %}
+                        {% endif %}
+                    </ul>
+                </div>
+            </div><!-- /.box -->
+        </div>
+    </div><!-- /.row -->
+{% endblock %}
