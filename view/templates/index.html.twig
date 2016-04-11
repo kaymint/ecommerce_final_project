@@ -1,0 +1,172 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Automatic Number Plate Recognition</title>
+    <meta name="description" content="Shuttercop: An Automatic Number Plate Recognition System For Ghanaian Vehicles" />
+    <meta name="keywords" content="number plate, automatic, recognition, Ghana, vehicles" />
+    <meta name="author" content="Kenneth Mintah Mensah - Ashesi" />
+    <link rel="stylesheet" href="css/bootstrap.min2.css" type="text/css">
+    <link rel="stylesheet" href="css/font-awesome.min.css" type="text/css">
+    <link rel="stylesheet" href="css/ionicons.min.css" type="text/css">
+</head>
+<body>
+
+{# NAVIGATION BAR#}
+{% block NAVIGATION_MENU %}
+    <nav class="navbar navbar-default">
+        <div class="container-fluid">
+            <div class="navbar-header">
+                <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1">
+                    <span class="sr-only">Toggle navigation</span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                </button>
+                <a class="navbar-brand" href="#">Brand</a>
+            </div>
+
+            <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+                <ul class="nav navbar-nav">
+                    <li class="active"><a href="#">Link <span class="sr-only">(current)</span></a></li>
+                    <li><a href="#">Link</a></li>
+                    <li class="dropdown">
+                        <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">Dropdown <span class="caret"></span></a>
+                        <ul class="dropdown-menu" role="menu">
+                            <li><a href="#">Action</a></li>
+                            <li><a href="#">Another action</a></li>
+                            <li><a href="#">Something else here</a></li>
+                            <li class="divider"></li>
+                            <li><a href="#">Separated link</a></li>
+                            <li class="divider"></li>
+                            <li><a href="#">One more separated link</a></li>
+                        </ul>
+                    </li>
+                </ul>
+                <form class="navbar-form navbar-left" role="search">
+                    <div class="form-group">
+                        <input type="text" class="form-control" placeholder="Search">
+                    </div>
+                    <button type="submit" class="btn btn-default">Submit</button>
+                </form>
+                <ul class="nav navbar-nav navbar-right">
+                    <li><a href="#">Link</a></li>
+                </ul>
+            </div>
+        </div>
+    </nav>
+{% endblock %}
+
+
+{# SIDEBAR #}
+{% block SIDEBAR %}
+    <div class="col-sm-3">
+        <div class="btn-group-vertical col-sm-12">
+            <a href="#" class="btn btn-default">Dashboard</a>
+            <a href="#" class="btn btn-default">Form 2</a>
+            <a href="#" class="btn btn-default">Form 3</a>
+            <a href="#" class="btn btn-default">Form 4</a>
+        </div>
+    </div>
+{% endblock %}
+
+
+{% block MAINCONTENT %}
+    <div class="col-sm-9">
+        <h1>Form 1</h1>
+        <ul class="breadcrumb">
+            <li><a href="#">Home</a></li>
+            <li class="active">Form 1 - Validation</li>
+        </ul>
+
+        <div class="container">
+            {% if validation is defined %}
+                {% for x in validation %}
+                    <span class="text-danger">{{ x }}</span><br>
+                {% endfor %}
+            {% endif %}
+        </div>
+
+        <form class="form-horizontal" method="get" action="form_validator.php">
+            <fieldset>
+                <legend>Form Validation 1</legend>
+                <div class="form-group">
+                    <label for="inputName" class="col-lg-2 control-label">Name</label>
+                    <div class="col-lg-10">
+                        <input type="text" class="form-control" id="inputName" name="fullname" placeholder="Firstname Lastname">
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label for="inputAge" class="col-lg-2 control-label">Age</label>
+                    <div class="col-lg-10">
+                        <input type="text" class="form-control" id="inputAge" name="age" placeholder="Age">
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label for="inputPhone" class="col-lg-2 control-label">Phone</label>
+                    <div class="col-lg-10">
+                        <input type="tel" class="form-control" id="inputPhone" name="phone" placeholder="Phone">
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label for="inputDOB" class="col-lg-2 control-label">Date of Birth</label>
+                    <div class="col-lg-10">
+                        <input type="text" class="form-control" id="inputDOB" name="dob" placeholder="Birth Date">
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label for="inputEmail" class="col-lg-2 control-label">Email</label>
+                    <div class="col-lg-10">
+                        <input type="text" class="form-control" id="inputEmail" name="email" placeholder="Email">
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label for="inputAddress" class="col-lg-2 control-label">Address</label>
+                    <div class="col-lg-10">
+                        <input type="text" class="form-control" id="inputAddress" name="address" placeholder="Address">
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label for="inputWebAddress" class="col-lg-2 control-label">Web Addresss</label>
+                    <div class="col-lg-10">
+                        <input type="text" class="form-control" id="inputWebAddress" name="wAddress" placeholder="Web Address">
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label for="inputPassword" class="col-lg-2 control-label">Password</label>
+                    <div class="col-lg-10">
+                        <input type="password" class="form-control" id="inputPassword" name="pass" placeholder="Password">
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label for="inputSalary" class="col-lg-2 control-label">Salary</label>
+                    <div class="col-lg-10">
+                        <input type="text" class="form-control" id="inputSalary" name="salary" placeholder="Salary">
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label for="largeTxt" class="col-lg-2 control-label">Text b/n 500 and 1000</label>
+                    <div class="col-lg-10">
+                        <textarea class="form-control" rows="3" id="largeTxt" name="largeTxt"></textarea>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <div class="col-lg-10 col-lg-offset-2">
+                        <button type="reset" class="btn btn-default">Cancel</button>
+                        <button type="submit" class="btn btn-primary">Submit</button>
+                    </div>
+                </div>
+            </fieldset>
+        </form>
+
+
+    </div>
+{% endblock %}
+
+<script type="text/javascript" src="js/jquery-2.1.3.min.js"></script>
+<script type="text/javascript" src="js/bootstrap.min.js"></script>
+<script type="text/javascript" src="js/input_validation.js"></script>
+</body>
+</html>
