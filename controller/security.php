@@ -51,3 +51,32 @@ function verifyKey($value, $hash){
     return password_verify($value, $hash);
 }
 
+/**
+ *
+ */
+function twoWayEncrypt($data){
+
+    $enc_key = '25c6c7ff35b9979b151f2136cd13b0ff';
+    $method = 'AES-128-CBC';
+    $options = 0;
+    $iv_size = mcrypt_get_iv_size(MCRYPT_RIJNDAEL_128, MCRYPT_MODE_CBC);
+    $iv = mcrypt_create_iv($iv_size, MCRYPT_RAND);
+
+    $encrypted = openssl_encrypt($data, $method, $enc_key, $options, $iv);
+    return $iv.$encrypted;
+}
+
+$result = twoWayEncrypt('Its works or not');
+echo $result;
+
+
+function twoWayDecrypt($data){
+    $enc_key = '25c6c7ff35b9979b151f2136cd13b0ff';
+    $method = 'AES-128-CBC';
+    $options = 0;
+    $iv_size = mcrypt_get_iv_size(MCRYPT_RIJNDAEL_128, MCRYPT_MODE_CBC);
+    $iv = substr($data, 0, $iv_size);
+    echo "<br>".$iv;
+    $decrypted = openssl_decrypt();
+}
+
