@@ -8,6 +8,7 @@
 
 session_start();
 require_once '../model/admin.php';
+require_once 'security.php';
 
 if(isset($_REQUEST['cmd'])){
     $cmd = intval($_REQUEST['cmd']);
@@ -32,19 +33,18 @@ function login(){
 
         echo $pass;
         $testObj = new admin();
-        $result = $testObj->loginUser('N.Amanquah', 'N.Amanquah');
-        $row = $result->fetch_assoc();
 
+        $result = $testObj->authenticateUser($pass, $user);
 
-        if(count($row) > 0){
-            $_SESSION['admin_username'] = $row['username'];
-            $_SESSION['admin_id'] = $row['admin_id'];
-            $_SESSION['admin_firstname'] = $row['firstname'];
-            $_SESSION['admin_lastname'] = $row['lastname'];
+        if($result == false){
+            header("Location: ../customer_view/admin_page/login.php");
+        }else{
+            $_SESSION['admin_username'] = $result['username'];
+            $_SESSION['admin_id'] = $result['admin_id'];
+            $_SESSION['admin_firstname'] = $result['firstname'];
+            $_SESSION['admin_lastname'] = $result['lastname'];
 
             header("Location: ../customer_view/admin_page/home.php");
-        }else{
-            header("Location: ../customer_view/admin_page/login.php");
         }
     }
 }

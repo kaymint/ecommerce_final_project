@@ -27,6 +27,8 @@ class admin extends adb_object{
     function addAdmin($username, $password, $firstname, $lastname){
 
         $password = encrypt($password);
+        $firstname = twoWayEncrypt($firstname);
+        $lastname = twoWayEncrypt($lastname);
         //sql query
         $str_query = "INSERT INTO admin(username, password, firstname, lastname)
                       VALUES (?,?,?,?)";
@@ -46,20 +48,25 @@ class admin extends adb_object{
     }
 
     /**
-     * @param $secret
-     * @param $key
-     * @return bool
+     * @param $password
+     * @param $username
+     * @return array|bool
      */
-    function authenticateUser($secret, $key){
+    function authenticateUser($password, $username){
 
-        $result = $this->getUser($key);
+        $result = $this->getUser($username);
         $row = $result->fetch_assoc();
 
         if(count($row) == 0){
             return false;
         }else{
             $enc_key = $row['password'];
-            return verifyKey($secret, $enc_key);
+            $result=  verifyKey($password, $enc_key);
+            if($result){
+                return $row;
+            }else{
+                return false;
+            }
         }
     }
 
@@ -67,8 +74,12 @@ class admin extends adb_object{
      * @param $user
      * @return bool|mysqli_result
      */
-    public function getUser($user){
-        $str_query = "SELECT AU.username, AU.password
+    private function getUser($user){
+        $str_query = "SELECT AU.username,
+                      AU.password,
+                      AU.admin_id,
+                      AU.firstname,
+                      AU.lastname
                       FROM admin AU
                       WHERE AU.username = ?";
 
@@ -79,6 +90,32 @@ class admin extends adb_object{
         }
 
         $stmt->bind_param("s", $user);
+
+        $stmt->execute();
+
+        return $stmt->get_result();
+    }
+
+    /**
+     * @param $user_id
+     * @return bool|mysqli_result
+     */
+    public function getUserDetails($user_id){
+        $str_query = "SELECT
+                      AU.username,
+                      AU.password,
+                      AU.firstname,
+                      AU.lastname
+                      FROM admin AU
+                      WHERE AU.admin_id = ?";
+
+        $stmt = $this->prepareQuery($str_query);
+
+        if($stmt === false){
+            return false;
+        }
+
+        $stmt->bind_param("i", $user_id);
 
         $stmt->execute();
 

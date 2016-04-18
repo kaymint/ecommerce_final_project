@@ -66,8 +66,12 @@ function twoWayEncrypt($data){
     return $iv.$encrypted;
 }
 
-$result = twoWayEncrypt('Its works or not');
-echo $result;
+//$result = twoWayEncrypt('Its works or not');
+//echo $result;
+//echo "<br> <br>";
+//$dec = twoWayDecrypt($result);
+//echo $dec;
+//echo "<br> <br>";
 
 
 function twoWayDecrypt($data){
@@ -76,7 +80,9 @@ function twoWayDecrypt($data){
     $options = 0;
     $iv_size = mcrypt_get_iv_size(MCRYPT_RIJNDAEL_128, MCRYPT_MODE_CBC);
     $iv = substr($data, 0, $iv_size);
-    echo "<br>".$iv;
-    $decrypted = openssl_decrypt();
+    $enc_data = substr($data, $iv_size);
+    $decrypted = openssl_decrypt($enc_data, $method, $enc_key, $options, $iv);
+
+    return $decrypted;
 }
 
