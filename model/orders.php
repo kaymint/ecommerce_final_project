@@ -20,7 +20,6 @@ class order extends adb_object{
 
 
     /**
-     * @param $date_ordered
      * @param $total
      * @param $address1
      * @param $address2
@@ -31,13 +30,13 @@ class order extends adb_object{
      * @param $lastname
      * @return bool|mysqli_stmt
      */
-    function addReceipt($date_ordered, $total, $address1, $address2, $phone, $email, $country, $firstname, $lastname)
+    function addReceipt($total, $address1, $address2, $phone, $email, $country, $firstname, $lastname)
     {
 
         //sql query
-        $str_query = "INSERT INTO receipts( date_ordered, total_cost, shipping_address1,
+        $str_query = "INSERT INTO order_receipts(total_cost, shipping_address1,
                               shipping_address2, phone, email, country, firstname, lastname)
-                      VALUES (?, ?, ?, ?,?, ?,?, ?, ?, ?,?, ? )";
+                      VALUES (?, ?, ?,?, ?,?, ?, ?)";
 
         $stmt = $this->prepareQuery($str_query);
 
@@ -45,7 +44,7 @@ class order extends adb_object{
             return false;
         }
 
-        $stmt->bind_param("sdsssssss", $date_ordered, $total, $address1, $address2, $phone, $email, $country,
+        $stmt->bind_param("dsssssss",  $total, $address1, $address2, $phone, $email, $country,
             $firstname, $lastname);
 
 
@@ -65,7 +64,7 @@ class order extends adb_object{
 
         //sql query
         $str_query = "INSERT INTO orders(receipt_id, laptop_id, cost, qty)
-                      VALUES (?, ?, ?, ?, ?)";
+                      VALUES (?, ?, ?, ?)";
 
         $stmt = $this->prepareQuery($str_query);
 
@@ -89,7 +88,7 @@ class order extends adb_object{
     function updateReceipt($recId){
 
         //sql query
-        $str_query = "UPDATE receipts
+        $str_query = "UPDATE order_receipts
                       SET
                       paid = ?,
                       date_paid = ?
@@ -119,7 +118,7 @@ class order extends adb_object{
      */
     function getNumOrders(){
         //sql query
-        $str_query = "SELECT COUNT(*) AS numOrders FROM order";
+        $str_query = "SELECT COUNT(*) AS numOrders FROM orders";
 
         $stmt = $this->prepareQuery($str_query);
 
@@ -138,7 +137,7 @@ class order extends adb_object{
      */
     function getNumSales(){
         //sql query
-        $str_query = "SELECT COUNT(*) AS numSales FROM receipts WHERE paid='PAID'";
+        $str_query = "SELECT COUNT(*) AS numSales FROM order_receipts WHERE paid='PAID'";
 
         $stmt = $this->prepareQuery($str_query);
 

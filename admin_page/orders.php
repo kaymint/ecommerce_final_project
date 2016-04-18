@@ -7,11 +7,11 @@
  */
 require_once 'valid_session_handler.php';
 
-require_once '../Twig-1.x/lib/Twig/Autoloader.php';
+require_once '../customer_view/Twig-1.x/lib/Twig/Autoloader.php';
 
-require_once '../../model/furniture.php';
+require_once '../model/laptop.php';
 
-require_once '../../model/orders.php';
+require_once '../model/orders.php';
 
 Twig_Autoloader::register();
 
@@ -27,7 +27,7 @@ if (isset($_GET['page'])) {
     $pageno = 1;
 }
 
-$furniture = new furniture();
+$laptop = new laptop();
 $orders = new orders();
 
 $result = $orders->getOrderCount();

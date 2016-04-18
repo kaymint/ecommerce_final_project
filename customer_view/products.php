@@ -16,7 +16,7 @@ if (isset($_GET['page'])) {
 
 require_once 'Twig-1.x/lib/Twig/Autoloader.php';
 
-require_once '../model/furniture.php';
+require_once '../model/laptop.php';
 
 Twig_Autoloader::register();
 
@@ -26,10 +26,12 @@ $twig = new Twig_Environment($loader);
 $template =$twig->loadTemplate('products.html.twig');
 $params = array();
 
-$furniture = new furniture();
+$laptop = new laptop();
 
 
-function getResult($furniture){
+function getResult($laptop){
+
+
     $value = array();
     if(isset($_REQUEST['vt'])) {
 
@@ -38,73 +40,63 @@ function getResult($furniture){
 
         switch ($vt) {
             case 1:
-                //band
-                if (isset($_REQUEST['cat'])) {
-                    $cat = intval($_REQUEST['cat']);
-                    $result = $furniture->getByCatCount($cat);
-                    $value['pType'] = 'cat';
-                    $value['pageIndex'] = $cat;
-                    $value['result'] = $result;
-
-                    return $value;
-                }
-                break;
-            case 2:
                 //category
                 if (isset($_REQUEST['brand'])) {
                     $brand = intval($_REQUEST['brand']);
-                    $result = $furniture->getByBrandCount($brand);
+                    $result = $laptop->getStockBrandCount($brand);
                     $value['pType'] = 'brand';
                     $value['pageIndex'] = $brand;
                     $value['result'] = $result;
                     return $value;
                 }
                 break;
-            case 3:
+            case 2:
                 //all
-                $result = $furniture->getStockCount();
+                $result = $laptop->getStockCount();
                 $value['result'] = $result;
                 return $value;
                 break;
-            case 4:
+            case 3:
                 //simple search
                 if(isset($_REQUEST['st'])){
                     $st = $_REQUEST['st'];
-                    $result = $furniture->getSearchCount($st);
+                    $result = $laptop->getSimpleSearchCount($st);
                     $value['pType'] = 'st';
                     $value['pageIndex'] = $st;
                     $value['result'] = $result;
                     return $value;
                 }
                 break;
-            case 5:
+            case 4:
                 //advanced search
-                if(isset($_REQUEST['stband']) || isset($_REQUEST['stname']) || isset($_REQUEST['stcat'])){
+                if(isset($_REQUEST['stband']) || isset($_REQUEST['stname'])){
                     $stbrand = $_REQUEST['stband'];
                     $stname = $_REQUEST['stname'];
-                    $stcat = $_REQUEST['stcat'];
-                    $result = $furniture->getAdvancedSearchCount($stbrand, $stname, $stcat);
+                    $result = $laptop->getAdvancedSearchCount($stbrand, $stname);
                     $value['pType'] = 'stband';
                     $value['pageIndex'] = $stbrand;
                     $value['stname'] = 'stname';
                     $value['stNameIndex'] = $stname;
-                    $value['stcat'] = 'stcat';
-                    $value['stCatIndex'] = $stcat;
                     $value['result'] = $result;
                     return $value;
                 }
-
+                break;
+            default:
+                //all
+                $result = $laptop->getStockCount();
+                $value['result'] = $result;
+                return $value;
                 break;
         }
     }else{
-        $result = $furniture->getStockCount();
+        $result = $laptop->getStockCount();
         $value['result'] = $result;
         return $value;
     }
 }
 
 
-$value = getResult($furniture);
+$value = getResult($laptop);
 
 $result = $value['result'];
 
@@ -114,18 +106,17 @@ if(isset($value['pageIndex']) && isset($value['pType']) && isset($value['vt'])){
     $params['vt'] = $value['vt'];
 }
 
-if(isset($value['stname']) && isset($value['stcat'])){
+if(isset($value['stname'])){
     $params['stname']= $value['stname'];
     $params['stNameIndex']= $value['stNameIndex'];
-    $params['stcat']= $value['stcat'];
-    $params['stCatIndex']= $value['stCatIndex'];
 }
 
 $count = $result->fetch_assoc();
 $numrows = $count['totalCount'];
 
+
 //3
-$rows_per_page = 15;
+$rows_per_page = 9;
 $lastpage      = ceil($numrows/$rows_per_page);
 
 //4
@@ -146,70 +137,48 @@ if(isset($_REQUEST['cmd'])){
 
     switch ($cmd){
         case 1:
-            //customer_view by category
-            if(isset($_REQUEST['cat'])){
-                $cat = intval($_REQUEST['cat']);
-                $result = $furniture->viewByCategory($cat ,$limit);
-                $params['pageType'] = 'cat';
-            }
-
-            break;
-        case 2:
             //customer_view by brandname
             if(isset($_REQUEST['brand'])){
                 $brand = intval($_REQUEST['brand']);
-                $result = $furniture->viewByBrandName($brand ,$limit);
+                $result = $laptop->viewLaptopsByBrand($brand, $limit);
                 $params['pageType'] = 'brand';
             }
             break;
-        case 3:
-            break;
-        case 4:
-            //customer_view by brandname
+        case 2:
+            //customer_view search
             if(isset($_REQUEST['st'])){
                 $name = $_REQUEST['st'];
-                $result = $furniture->searchByName($name ,$limit);
+                $result = $laptop->getSimpleSearch($name);
                 $params['pageType'] = 'st';
             }
             break;
-        case 5:
-            if(isset($_REQUEST['stband']) || isset($_REQUEST['stname']) || isset($_REQUEST['stcat'])) {
+        case 3:
+            if(isset($_REQUEST['stband']) || isset($_REQUEST['stname'])) {
                 $stbrand = $_REQUEST['stband'];
                 $stname = $_REQUEST['stname'];
-                $stcat = $_REQUEST['stcat'];
-                $result = $furniture->advancedSearch($stbrand, $stname, $stcat);
+                $result = $laptop->advancedSearch($stbrand, $stname);
             }
-
             break;
         default:
-            $result = $furniture->viewStock($limit);
+            $result = $laptop->viewAllLaptops($limit);
             $params['pageType'] = 'all';
             break;
     }
 }else{
-    $result = $furniture->viewStock($limit);
+    $result = $laptop->viewAllLaptops($limit);
     $params['pageType'] = 'all';
 }
 
 
-
-
 //stock
 $stock = $result->fetch_all(MYSQLI_ASSOC);
-$params['furniture'] = $stock;
-
-//categories
-$result = $furniture->getCategories();
-$cat = $result->fetch_all(MYSQLI_ASSOC);
-$params['categories'] = $cat;
+$params['laptops'] = $stock;
 
 
 //brands
-$result = $furniture->getBrands();
+$result = $laptop->getBrands();
 $brands = $result->fetch_all(MYSQLI_ASSOC);
 $params['brands'] = $brands;
-
-
 
 
 $params['currentPage'] = $_SERVER['PHP_SELF'];
@@ -218,8 +187,11 @@ $params['currentPage'] = $_SERVER['PHP_SELF'];
 $params['page'] = $pageno;
 $params['totalPages'] = $lastpage;
 
-if(isset($_SESSION['nItems'] )){
+if(isset($_SESSION['nItems'])){
     $params['nItems'] = $_SESSION['nItems'];
+    getCartItemDetails();
+    $params['cartDetails'] = $_SESSION['cart_details'];
+    $params['sub_total'] = $_SESSION['sub_total'];
 }
 
 $template->display($params);

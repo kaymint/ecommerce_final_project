@@ -1,0 +1,101 @@
+{% extends "home.html.twig" %}
+
+{% block SLIDER %}
+    <section id="aa-catg-head-banner" >
+        <img src="img/banner/4.png" alt="laptop img" style="max-height: 250px">
+        <div class="aa-catg-head-banner-area">
+            <div class="container">
+                <div class="aa-catg-head-banner-content">
+                    <h2>LAPTOPS</h2>
+                    <ol class="breadcrumb">
+                        <li><a href="home.php">Home</a></li>
+                        <li class="active">Cart</li>
+                    </ol>
+                </div>
+            </div>
+        </div>
+    </section>
+{% endblock %}
+
+{% block PROMO %}
+
+{% endblock %}
+
+{% block PRODUCTS %}
+    <section id="cart-view">
+        <div class="container">
+            <div class="row">
+                <div class="col-md-12">
+                    <div class="cart-view-area">
+                        <div class="cart-view-table">
+                            <form action="">
+                                <div class="table-responsive">
+                                    <table class="table">
+                                        <thead>
+                                        <tr>
+                                            <th></th>
+                                            <th></th>
+                                            <th>Product</th>
+                                            <th>Price</th>
+                                            <th>Quantity</th>
+                                            <th>Total</th>
+                                        </tr>
+                                        </thead>
+                                        <tbody>
+                                        {% for x in cartDetails %}
+                                            <tr>
+                                                <td><a class="remove" href="{{ currentPage }}?func=3&id={{ x.laptop_id }}"><fa class="fa fa-close"></fa></a></td>
+                                                <td><a href="#"><img src="{{ x.image }}" alt="img"></a></td>
+                                                <td><a class="aa-cart-title" href="#">{{ x.product_name }}</a></td>
+                                                <td>${{ x.price }}</td>
+                                                <td>
+                                                    <a href="{{ currentPage }}?func=2&id={{ x.laptop_id }}"> <span class="fa fa-minus"></span> </a>
+                                                    <input class="aa-cart-quantity" type="number" value="{{ x.count }}">
+                                                    <a href="{{ currentPage }}?func=1&id={{ x.laptop_id }}"> <span class="fa fa-plus"></span> </a>
+                                                </td>
+                                                <td>${{ x.itemTotal }}</td>
+                                            </tr>
+                                        {% endfor %}
+                                        </tbody>
+                                    </table>
+                                </div>
+                            </form>
+                            <!-- Cart Total view -->
+                            <div class="cart-view-total">
+                                <h4>Cart Totals</h4>
+                                <table class="aa-totals-table">
+                                    <tbody>
+                                    <tr>
+                                        <th>Subtotal</th>
+                                        <td>${{ subTotal }}</td>
+                                    </tr>
+                                    <tr>
+                                        <th>Total</th>
+                                        <td>${{ subTotal + 2.00 }}</td>
+                                    </tr>
+                                    </tbody>
+                                </table>
+                                <a href="checkout.php" class="aa-cart-view-btn">Proceed to Checkout</a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+{% endblock %}
+
+{% block SUPPORT %}
+
+{% endblock %}
+
+{% block TESTIMONIAL %}
+
+{% endblock %}
+
+{% block BLOG %}
+{% endblock %}
+
+{% block CLIENTBRAND %}
+{% endblock %}

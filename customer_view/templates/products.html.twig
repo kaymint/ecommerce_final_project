@@ -1,154 +1,261 @@
 {% extends "home.html.twig" %}
 
-{% block CAROUSEL %}
-    <section id="advertisement">
-        <div class="container">
-            <img src="images/ad2.png" alt="" />
+{% block SLIDER %}
+    <section id="aa-catg-head-banner" >
+        <img src="img/banner/4.png" alt="laptop img" style="max-height: 250px">
+        <div class="aa-catg-head-banner-area">
+            <div class="container">
+                <div class="aa-catg-head-banner-content">
+                    <h2>LAPTOPS</h2>
+                    <ol class="breadcrumb">
+                        <li><a href="home.php">Home</a></li>
+                        <li class="active">Products</li>
+                    </ol>
+                </div>
+            </div>
         </div>
     </section>
 {% endblock %}
 
-{% block FEATUREITEMS %}
-    <div class="features_items"><!--features_items-->
-        <h2 class="title text-center">Features Items</h2>
-        {% for x in furniture %}
-            <div class="col-sm-4">
-                <div class="product-image-wrapper">
-                    <div class="single-products">
-                        <div class="productinfo text-center">
-                            <img src="{{ x.image }}" alt="" />
-                            <h2>${{ x.cost }}.00</h2>
-                            <p>{{ x.brand_name }} {{ x.name }} {{ x.furniture_type }}</p>
-                            <a href="{{ currentPage }}?func=1&id={{ x.furniture_id }}" class="btn btn-default add-to-cart">
-                                <i class="fa fa-shopping-cart"></i>Add to cart</a>
+{% block PROMO %}
+
+{% endblock %}
+
+{% block PRODUCTS %}
+    <section id="aa-product-category">
+        <div class="container">
+            <div class="row">
+                <div class="col-lg-9 col-md-9 col-sm-8 col-md-push-3">
+                    <div class="aa-product-catg-content">
+                        <div class="aa-product-catg-head">
+                            <div class="aa-product-catg-head-left">
+                                <form action="" class="aa-sort-form">
+                                    <label for="">Sort by</label>
+                                    <select name="">
+                                        <option value="1" selected="Default">Default</option>
+                                        <option value="2">Name</option>
+                                        <option value="3">Price</option>
+                                        <option value="4">Date</option>
+                                    </select>
+                                </form>
+                                <form action="" class="aa-show-form">
+                                    <label for="">Show</label>
+                                    <select name="">
+                                        <option value="1" selected="12">12</option>
+                                        <option value="2">24</option>
+                                        <option value="3">36</option>
+                                    </select>
+                                </form>
+                            </div>
+                            <div class="aa-product-catg-head-right">
+                                <a id="grid-catg" href="#"><span class="fa fa-th"></span></a>
+                                <a id="list-catg" href="#"><span class="fa fa-list"></span></a>
+                            </div>
+                        </div>
+                        <div class="aa-product-catg-body">
+                            <ul class="aa-product-catg">
+                                <!-- start single product item -->
+                                {% for x in laptops %}
+                                <li>
+                                    <figure>
+                                        <a class="aa-product-img" href="#"><img src="{{ x.image }}" alt="polo shirt img"></a>
+                                        <a class="aa-add-card-btn"href="{{ currentPage }}?func=1&id={{ x.laptop_id }}"><span class="fa fa-shopping-cart"></span>Add To Cart</a>
+                                        <figcaption>
+                                            <h4 class="aa-product-title"><a href="#">{{ x.product_name }}</a></h4>
+                                            <span class="aa-product-price">${{ x.price }}</span>
+                                            <p class="aa-product-descrip">{{ x.special_features }}</p>
+                                        </figcaption>
+                                    </figure>
+                                    <div class="aa-product-hvr-content">
+                                        <a href="#" data-toggle="tooltip" data-placement="top" title="Add to Wishlist"><span class="fa fa-heart-o"></span></a>
+                                        <a href="#" data-toggle="tooltip" data-placement="top" title="Compare"><span class="fa fa-exchange"></span></a>
+                                        <a href="#" data-toggle2="tooltip" data-placement="top" title="Quick View" data-toggle="modal" data-target="#quick-view-modal"><span class="fa fa-search"></span></a>
+                                    </div>
+                                    <!-- product badge -->
+                                    <span class="aa-badge aa-sale" href="#">SALE!</span>
+                                </li>
+                                    {% endfor %}
+                                <!-- start single product item -->
+
+                            </ul>
+                            <!-- quick view modal -->
+                            <div class="modal fade" id="quick-view-modal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+                                <div class="modal-dialog">
+                                    <div class="modal-content">
+                                        <div class="modal-body">
+                                            <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+                                            <div class="row">
+                                                <!-- Modal view slider -->
+                                                <div class="col-md-6 col-sm-6 col-xs-12">
+                                                    <div class="aa-product-view-slider">
+                                                        <div class="simpleLens-gallery-container" id="demo-1">
+                                                            <div class="simpleLens-container">
+                                                                <div class="simpleLens-big-image-container">
+                                                                    <a class="simpleLens-lens-image" data-lens-image="img/view-slider/large/polo-shirt-1.png">
+                                                                        <img src="img/view-slider/medium/polo-shirt-1.png" class="simpleLens-big-image">
+                                                                    </a>
+                                                                </div>
+                                                            </div>
+                                                            <div class="simpleLens-thumbnails-container">
+                                                                <a href="#" class="simpleLens-thumbnail-wrapper"
+                                                                   data-lens-image="img/view-slider/large/polo-shirt-1.png"
+                                                                   data-big-image="img/view-slider/medium/polo-shirt-1.png">
+                                                                    <img src="img/view-slider/thumbnail/polo-shirt-1.png">
+                                                                </a>
+                                                                <a href="#" class="simpleLens-thumbnail-wrapper"
+                                                                   data-lens-image="img/view-slider/large/polo-shirt-3.png"
+                                                                   data-big-image="img/view-slider/medium/polo-shirt-3.png">
+                                                                    <img src="img/view-slider/thumbnail/polo-shirt-3.png">
+                                                                </a>
+
+                                                                <a href="#" class="simpleLens-thumbnail-wrapper"
+                                                                   data-lens-image="img/view-slider/large/polo-shirt-4.png"
+                                                                   data-big-image="img/view-slider/medium/polo-shirt-4.png">
+                                                                    <img src="img/view-slider/thumbnail/polo-shirt-4.png">
+                                                                </a>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                <!-- Modal view content -->
+                                                <div class="col-md-6 col-sm-6 col-xs-12">
+                                                    <div class="aa-product-view-content">
+                                                        <h3>T-Shirt</h3>
+                                                        <div class="aa-price-block">
+                                                            <span class="aa-product-view-price">$34.99</span>
+                                                            <p class="aa-product-avilability">Avilability: <span>In stock</span></p>
+                                                        </div>
+                                                        <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Officiis animi, veritatis quae repudiandae quod nulla porro quidem, itaque quis quaerat!</p>
+                                                        <h4>Size</h4>
+                                                        <div class="aa-prod-view-size">
+                                                            <a href="#">S</a>
+                                                            <a href="#">M</a>
+                                                            <a href="#">L</a>
+                                                            <a href="#">XL</a>
+                                                        </div>
+                                                        <div class="aa-prod-quantity">
+                                                            <form action="">
+                                                                <select name="" id="">
+                                                                    <option value="0" selected="1">1</option>
+                                                                    <option value="1">2</option>
+                                                                    <option value="2">3</option>
+                                                                    <option value="3">4</option>
+                                                                    <option value="4">5</option>
+                                                                    <option value="5">6</option>
+                                                                </select>
+                                                            </form>
+                                                            <p class="aa-prod-category">
+                                                                Category: <a href="#">Polo T-Shirt</a>
+                                                            </p>
+                                                        </div>
+                                                        <div class="aa-prod-view-bottom">
+                                                            <a href="#" class="aa-add-to-cart-btn"><span class="fa fa-shopping-cart"></span>Add To Cart</a>
+                                                            <a href="#" class="aa-add-to-cart-btn">View Details</a>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div><!-- /.modal-content -->
+                                </div><!-- /.modal-dialog -->
+                            </div>
+                            <!-- / quick view modal -->
+                        </div>
+                        <div class="aa-product-catg-pagination">
+                            <nav>
+                                {% if totalPages > 0 %}
+                                <ul class="pagination">
+                                    {% if page == 1 %}
+                                    <li>
+                                        <a href="#" aria-label="Previous" class="disabled">
+                                            <span aria-hidden="true">&laquo;</span>
+                                        </a>
+                                    </li>
+                                    {% else %}
+                                        <li>
+                                        {% if stname is not defined %}
+                                            <a href="products.php?page={{ page - 1 }}&vt={{ vt }}&{{ pType }}={{ pageIndex }}" aria-label="Previous" class="disabled">
+                                                <span aria-hidden="true">&laquo;</span>
+                                            </a>
+                                        {% else %}
+                                            <a href="products.php?page={{ page - 1 }}&vt={{ vt }}&{{ pType }}={{ pageIndex }}&{{ stname }}={{ stNameIndex }}" aria-label="Previous" class="disabled">
+                                                <span aria-hidden="true">&laquo;</span>
+                                            </a>
+                                        {% endif %}
+                                        </li>
+                                    {% endif %}
+
+                                    {% for i in page..page+4 %}
+                                        {% if i >= 1 and i <= totalPages %}
+                                            <li>
+                                                {% if stname is not defined %}
+                                                    <a href='products.php?page={{ i}}&vt={{ vt }}&{{ pType }}={{ pageIndex }}'>
+                                                        {{ i }}
+                                                    </a>
+                                                {% else %}
+                                                    <a href='products.php?page={{ i}}&vt={{ vt }}&{{ pType }}={{ pageIndex }}&{{ stname }}={{ stNameIndex }}'>
+                                                        {{ i }}
+                                                    </a>
+                                                {% endif %}
+                                            </li>
+                                        {% endif %}
+                                    {% endfor %}
+
+                                    {% if page == totalPages %}
+                                        <li>
+                                            <a href="#" aria-label="Previous" class="disabled">
+                                                <span aria-hidden="true">&raquo;</span>
+                                            </a>
+                                        </li>
+                                    {% else %}
+                                        <li>
+                                            {% if stname is not defined %}
+                                                <a href="products.php?page={{ page + 1 }}&vt={{ vt }}&{{ pType }}={{ pageIndex }}" aria-label="Previous" class="disabled">
+                                                    <span aria-hidden="true">&raquo;</span>
+                                                </a>
+                                            {% else %}
+                                                <a href="products.php?page={{ page + 1 }}&vt={{ vt }}&{{ pType }}={{ pageIndex }}&{{ stname }}={{ stNameIndex }}" aria-label="Previous" class="disabled">
+                                                    <span aria-hidden="true">&raquo;</span>
+                                                </a>
+                                            {% endif %}
+                                        </li>
+                                    {% endif %}
+                                </ul>
+                                    {% endif %}
+                            </nav>
                         </div>
                     </div>
-                    <div class="choose">
-                        <ul class="nav nav-pills nav-justified">
-                            <li><a href="product_details.php?cmd=1&fid={{ x.furniture_id }}"><i class="fa fa-eye"></i>View Details</a></li>
-                        </ul>
-                    </div>
                 </div>
+                <div class="col-lg-3 col-md-3 col-sm-4 col-md-pull-9">
+                    <aside class="aa-sidebar">
+                        <!-- single sidebar -->
+                        <div class="aa-sidebar-widget">
+                            <h3>Category</h3>
+                            <ul class="aa-catg-nav">
+                                {% for x in brands %}
+                                <li><a href="products.php?cmd=1&brand={{ x.brand_id }}&vt=1">{{ x.brand_name }}</a></li>
+                                {% endfor %}
+                            </ul>
+                        </div>
+                    </aside>
+                </div>
+
             </div>
-        {% endfor %}
-
-    </div><!--features_items-->
-{% endblock %}
-
-{% block PAGINATION %}
-    <div class='panel-footer'>
-        {% if totalPages > 0 %}
-            <ul class='pagination pagination-lg' id="pagination">
-                {#{% for i in 1..totalPages %}#}
-
-                {#{% if loop.first %}#}
-                {% if page == 1 %}
-                    <li class="prev disabled">
-                        <a>
-                            <i class="fa fa-angle-double-left"></i>
-                        </a>
-                    </li>
-                    <li class="prev disabled">
-                        <a>
-                            <i class="fa fa-angle-left"></i>
-                        </a>
-                    </li>
-                {% else %}
-                    <li class="prev">
-                        {% if stname is not defined %}
-                        <a href='products.php?page={{ 1 }}&vt={{ vt }}&{{ pType }}={{ pageIndex }}'>
-                            <i class="fa fa-angle-double-left"></i>
-                        </a>
-                        {% else %}
-                            <a href='products.php?page={{ 1 }}&vt={{ vt }}&{{ pType }}={{ pageIndex }}&{{ stname }}={{ stNameIndex }}&{{ stcat }}={{ stCatIndex }}'>
-                                <i class="fa fa-angle-double-left"></i>
-                            </a>
-                        {% endif %}
-                    </li>
-                    <li class="prev">
-                    {% if stname is not defined %}
-                        <a href='products.php?page={{ page - 1 }}&vt={{ vt }}&{{ pType }}={{ pageIndex }}'>
-                            <i class="fa fa-angle-left"></i>
-                        </a>
-                    {% else %}
-                        <a href='products.php?page={{ page - 1 }}&vt={{ vt }}&{{ pType }}={{ pageIndex }}&{{ stname }}={{ stNameIndex }}&{{ stcat }}={{ stCatIndex }}'>
-                            <i class="fa fa-angle-left"></i>
-                        </a>
-                    {% endif %}
-                    </li>
-                {% endif %}
-            </ul>
-            {#{% endif %}#}
-
-            <ul class="pagination pagination-lg">
-                {% for i in page..page+4 %}
-                    {% if i >= 1 and i <= totalPages %}
-                        <li class="prev">
-                        {% if stname is not defined %}
-                            <a href='products.php?page={{ i}}&vt={{ vt }}&{{ pType }}={{ pageIndex }}'>
-                                {{ i }}
-                            </a>
-                        {% else %}
-                            <a href='products.php?page={{ i}}&vt={{ vt }}&{{ pType }}={{ pageIndex }}&{{ stname }}={{ stNameIndex }}&{{ stcat }}={{ stCatIndex }}'>
-                                {{ i }}
-                            </a>
-                        {% endif %}
-                        </li>
-                    {% endif %}
-                {% endfor %}
-            </ul>
-
-            {#{% if loop.last %}#}
-            <ul class="pagination pagination-lg">
-                {% if page == totalPages %}
-                    <li class="next disabled">
-                        <a>
-                            <i class="fa fa-angle-right"></i>
-                        </a>
-                    </li>
-                    <li class="next disabled">
-                        <a>
-                            <i class="fa fa-angle-double-right"></i>
-                        </a>
-                    </li>
-                {% else %}
-
-                    <li class="next">
-                    {% if stname is not defined %}
-                        <a href='products.php?page={{ page + 1 }}&vt={{ vt }}&{{ pType }}={{ pageIndex }}'>
-                            <i class="fa fa-angle-right"></i>
-                        </a>
-                    {% else %}
-                        <a href='products.php?page={{ page + 1 }}&vt={{ vt }}&{{ pType }}={{ pageIndex }}&{{ stname }}={{ stNameIndex }}&{{ stcat }}={{ stCatIndex }}'>
-                            <i class="fa fa-angle-right"></i>
-                        </a>
-                    {% endif %}
-                    </li>
-                    <li class="next">
-                    {% if stname is not defined %}
-                        <a href='products.php?page={{ totalPages }}&vt={{ vt }}&{{ pType }}={{ pageIndex }}'>
-                            <i class="fa fa-angle-double-right"></i>
-                        </a>
-                    {% else %}
-                        <a href='products.php?page={{ totalPages }}&vt={{ vt }}&{{ pType }}={{ pageIndex }}&{{ stname }}={{ stNameIndex }}&{{ stcat }}={{ stCatIndex }}'>
-                            <i class="fa fa-angle-double-right"></i>
-                        </a>
-                    {% endif %}
-                    </li>
-                {% endif %}
-            </ul>
-            {#{% endif %}#}
-
-            {#{% endfor %}#}
-            </ul>
-        {% endif %}
-
-
-        <div class='pull-right' id="paginationResult">
-            Page <a>{{ page }}</a> out of <a>{{ totalPages }}</a>
         </div>
-    </div>
+    </section>
+
 {% endblock %}
 
-{% block CATEGORYTAB %}
+{% block SUPPORT %}
+
+{% endblock %}
+
+{% block TESTIMONIAL %}
+
+{% endblock %}
+
+{% block BLOG %}
+{% endblock %}
+
+{% block CLIENTBRAND %}
 {% endblock %}

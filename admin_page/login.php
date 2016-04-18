@@ -6,7 +6,7 @@
  * Time: 1:30 AM
  */
 
-require_once '../Twig-1.x/lib/Twig/Autoloader.php';
+require_once '../customer_view/Twig-1.x/lib/Twig/Autoloader.php';
 
 Twig_Autoloader::register();
 

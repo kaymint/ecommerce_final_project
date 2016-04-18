@@ -8,7 +8,6 @@
 
 session_start();
 
-unset($_SESSION['com_name']);
 unset($_SESSION['rec_email']);
 unset($_SESSION['rec_firstname']);
 unset($_SESSION['rec_lastname']);
@@ -24,4 +23,4 @@ unset($_SESSION['cart_details']);
 unset($_SESSION['cart_ids']);
 unset( $_SESSION['nItems']);
 
-header('Location: home.php');
+header('Location: products.php');

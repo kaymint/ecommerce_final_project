@@ -334,7 +334,7 @@ class laptop extends adb_object
      * @param $brand_id
      * @return bool|mysqli_result
      */
-    function viewLaptopsByBrand($limit, $brand_id){
+    function viewLaptopsByBrand($brand_id, $limit){
         //sql query
         $str_query = "SELECT
                       CONCAT(B.brand_name, ' - ', L.name, ' ', D.size, '\" ', L.color ) AS product_name,
@@ -434,7 +434,7 @@ class laptop extends adb_object
      */
     function getBrands(){
         //sql query
-        $str_query = "SELECT * FROM brands";
+        $str_query = "SELECT * FROM brand";
 
         $stmt = $this->prepareQuery($str_query);
 

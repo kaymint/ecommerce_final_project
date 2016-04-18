@@ -10,7 +10,7 @@ error_reporting(E_ERROR | E_PARSE);
 
 define("DB_HOST", 'localhost');
 
-define("DB_NAME", 'ecommerce_final');
+define("DB_NAME", 'e_commerce_final');
 define("DB_PORT", 3306);
 define("DB_USER","root");
 define("DB_PWORD","");

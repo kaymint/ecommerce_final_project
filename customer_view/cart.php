@@ -10,7 +10,7 @@ require_once 'shopping_cart_control.php';
 
 require_once 'Twig-1.x/lib/Twig/Autoloader.php';
 
-require_once '../model/furniture.php';
+require_once '../model/laptop.php';
 
 Twig_Autoloader::register();
 
@@ -26,8 +26,11 @@ $params['subTotal'] = $_SESSION['sub_total'];
 
 $params['currentPage'] = $_SERVER['PHP_SELF'];
 
-if(isset($_SESSION['nItems'] )){
+if(isset($_SESSION['nItems'])){
     $params['nItems'] = $_SESSION['nItems'];
+    getCartItemDetails();
+    $params['cartDetails'] = $_SESSION['cart_details'];
+    $params['sub_total'] = $_SESSION['sub_total'];
 }
 
 $template->display($params);

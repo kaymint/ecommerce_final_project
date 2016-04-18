@@ -1,5 +1,4 @@
 <?php
-error_reporting(E_ERROR | E_PARSE);
 /**
  * Created by PhpStorm.
  * User: StreetHustling
@@ -17,7 +16,7 @@ if (isset($_GET['page'])) {
 
 require_once 'Twig-1.x/lib/Twig/Autoloader.php';
 
-require_once '../model/furniture.php';
+require_once '../model/laptop.php';
 
 Twig_Autoloader::register();
 
@@ -27,15 +26,15 @@ $twig = new Twig_Environment($loader);
 $template =$twig->loadTemplate('home.html.twig');
 $params = array();
 
-$furniture = new furniture();
+$laptop = new laptop();
 
-$result = $furniture->getStockCount();
+$result = $laptop->getStockCount();
 
 $count = $result->fetch_assoc();
 $numrows = $count['totalCount'];
 
 //3
-$rows_per_page = 6;
+$rows_per_page = 8;
 $lastpage      = ceil($numrows/$rows_per_page);
 
 //4
@@ -50,31 +49,27 @@ if ($pageno < 1) {
 //5
 $limit = 'LIMIT ' .($pageno - 1) * $rows_per_page .',' .$rows_per_page;
 
-$result = $furniture->viewStock($limit);
+$result = $laptop->viewAllLaptops($limit);
 
 //stock party
 $stock = $result->fetch_all(MYSQLI_ASSOC);
-$params['furniture'] = $stock;
+$params['laptops'] = $stock;
 
 //categories
-$result = $furniture->getCategories();
-$cat = $result->fetch_all(MYSQLI_ASSOC);
-$params['categories'] = $cat;
-
-
-//brands
-$result = $furniture->getBrands();
+$result = $laptop->getBrands();
 $brands = $result->fetch_all(MYSQLI_ASSOC);
 $params['brands'] = $brands;
 
 
-$limit2 = 'LIMIT 8';
+
+
+$limit2 = 'LIMIT 4';
 //getByCategories
 $allCats = array();
-foreach($cat as $value){
-    $res = $furniture->viewByCategory($value['category_id'], $limit2);
+foreach($brands as $value){
+    $res = $laptop->viewLaptopsByBrand($value['brand_id'], $limit2);
     $catRes = $res->fetch_all(MYSQLI_ASSOC);
-    $allCats[$value['category_id']] = $catRes;
+    $allCats[$value['brand_id']] = $catRes;
 }
 $params['catTab'] = $allCats;
 
@@ -84,13 +79,10 @@ $params['totalPages'] = $lastpage;
 
 if(isset($_SESSION['nItems'])){
     $params['nItems'] = $_SESSION['nItems'];
+    getCartItemDetails();
+    $params['cartDetails'] = $_SESSION['cart_details'];
+    $params['sub_total'] = $_SESSION['sub_total'];
 }
-
-if(isset($_SESSION['theme'])){
-    $params['theme'] = $_SESSION['theme'];
-}
-
-
 
 $template->display($params);
 

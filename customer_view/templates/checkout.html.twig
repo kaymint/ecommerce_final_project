@@ -1,0 +1,184 @@
+{% extends "home.html.twig" %}
+
+{% block SLIDER %}
+    <section id="aa-catg-head-banner" >
+        <img src="img/banner/4.png" alt="laptop img" style="max-height: 250px">
+        <div class="aa-catg-head-banner-area">
+            <div class="container">
+                <div class="aa-catg-head-banner-content">
+                    <h2>LAPTOPS</h2>
+                    <ol class="breadcrumb">
+                        <li><a href="home.php">Home</a></li>
+                        <li class="active">Checkout</li>
+                    </ol>
+                </div>
+            </div>
+        </div>
+    </section>
+{% endblock %}
+
+{% block PROMO %}
+
+{% endblock %}
+
+{% block PRODUCTS %}
+    <section id="checkout">
+        <div class="container">
+            <div class="row">
+                <div class="col-md-12">
+                    <div class="checkout-area">
+                        <form action="../controller/order_controller.php" method="post">
+                            <input type="hidden" name="cmd" value="3">
+                            <div class="row">
+                                <div class="col-md-8">
+                                    <div class="checkout-left">
+                                        <div class="panel-group" id="accordion">
+                                            <!-- Billing Details -->
+                                            <div class="panel panel-default aa-checkout-billaddress">
+                                                <div class="panel-heading">
+                                                    <h4 class="panel-title">
+                                                        <a data-toggle="collapse" data-parent="#accordion" href="#collapseThree">
+                                                            Shipping & Billing Details
+                                                        </a>
+                                                    </h4>
+                                                </div>
+                                                <div class="panel-default">
+                                                    <div class="panel-body">
+                                                        <div class="row">
+                                                            <div class="col-md-6">
+                                                                <div class="aa-checkout-single-bill">
+                                                                    <input type="text" name="rec_firstname" placeholder="First Name*" required>
+                                                                </div>
+                                                            </div>
+                                                            <div class="col-md-6">
+                                                                <div class="aa-checkout-single-bill">
+                                                                    <input type="text" name="rec_lastname" placeholder="Last Name*" required>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                        <div class="row">
+                                                            <div class="col-md-6">
+                                                                <div class="aa-checkout-single-bill">
+                                                                    <input type="email" name="rec_email" placeholder="Email Address*" required>
+                                                                </div>
+                                                            </div>
+                                                            <div class="col-md-6">
+                                                                <div class="aa-checkout-single-bill">
+                                                                    <input type="tel" placeholder="Phone*" name="rec_phone">
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                        <div class="row">
+                                                            <div class="col-md-12">
+                                                                <div class="aa-checkout-single-bill">
+                                                                    <textarea cols="8" rows="3" name="rec_address1">Address1*</textarea>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                        <div class="row">
+                                                            <div class="col-md-12">
+                                                                <div class="aa-checkout-single-bill">
+                                                                    <textarea cols="8" rows="3" name="rec_address2">Address2</textarea>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                        <div class="row">
+                                                            <div class="col-md-12">
+                                                                <div class="aa-checkout-single-bill">
+                                                                    <select name="rec_country">
+                                                                        <option value="0">Select Your Country</option>
+                                                                        <option value="Australia">Australia</option>
+                                                                        <option value="Afganistan">Afganistan</option>
+                                                                        <option value="Bangladesh">Bangladesh</option>
+                                                                        <option value="Belgium">Belgium</option>
+                                                                        <option value="Brazil">Brazil</option>
+                                                                        <option value="Canada">Canada</option>
+                                                                        <option value="China">China</option>
+                                                                        <option value="Denmark">Denmark</option>
+                                                                        <option value="Egypt">Egypt</option>
+                                                                        <option value="Ghana">Ghana</option>
+                                                                        <option value="India">India</option>
+                                                                        <option value="Iran">Iran</option>
+                                                                        <option value="Israel">Israel</option>
+                                                                        <option value="Mexico">Mexico</option>
+                                                                        <option value="UAE">UAE</option>
+                                                                        <option value="UK">UK</option>
+                                                                        <option value="USA">USA</option>
+                                                                    </select>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-md-4">
+                                    <div class="checkout-right">
+                                        <h4>Order Summary</h4>
+                                        <div class="aa-order-summary-area">
+                                            <table class="table table-responsive">
+                                                <thead>
+                                                <tr>
+                                                    <th>Product</th>
+                                                    <th>Total</th>
+                                                </tr>
+                                                </thead>
+                                                <tbody>
+                                                {% for x in cartDetails %}
+                                                <tr>
+                                                    <td>{{ x.product_name }} <strong> x  {{ x.count }}</strong></td>
+                                                    <td>${{ x.itemTotal }}</td>
+                                                </tr>
+                                                    {% endfor %}
+                                                </tbody>
+                                                <tfoot>
+                                                <tr>
+                                                    <th>Subtotal</th>
+                                                    <td>${{ subTotal }}</td>
+                                                </tr>
+                                                <tr>
+                                                    <th>Discount</th>
+                                                    <td>{{ discount }}%</td>
+                                                </tr>
+                                                <tr>
+                                                    <th>Tax</th>
+                                                    <td>${{ tax }}</td>
+                                                </tr>
+                                                <tr>
+                                                    <th>Total</th>
+                                                    <td>${{ overallTotal }}</td>
+                                                </tr>
+                                                </tfoot>
+                                            </table>
+                                        </div>
+                                        <h4>Payment Method</h4>
+                                        <div class="aa-payment-method">
+                                            <label for="cashdelivery"><input type="radio" id="cashdelivery" name="optionsRadios"> Cash on Delivery </label>
+                                            <input type="submit" value="Place Order" class="aa-browse-btn">
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+{% endblock %}
+
+{% block SUPPORT %}
+
+{% endblock %}
+
+{% block TESTIMONIAL %}
+
+{% endblock %}
+
+{% block BLOG %}
+{% endblock %}
+
+{% block CLIENTBRAND %}
+{% endblock %}

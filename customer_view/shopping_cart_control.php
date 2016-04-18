@@ -23,13 +23,12 @@ session_start();
  *      5. cart_details
  */
 
-require_once '../model/furniture.php';
+require_once '../model/laptop.php';
 
 //cart ids
 if(!isset($_SESSION['cart_ids'])){
     $_SESSION['cart_ids'] = array();
     $_SESSION['nItems'] = 0;
-    var_dump($_SESSION['cart_ids']);
 }
 
 //take away errors
@@ -83,7 +82,7 @@ if(isset($_REQUEST['func'])){
             break;
         case 4:
             //Empty Cart
-            if(isset($_GET['id'])){
+            if(isset($_SESSION['nItems'])){
                 $_SESSION['nItems'] = 0;
                 unset($_SESSION['cart_ids']);
             }
@@ -97,14 +96,14 @@ function getCartItemDetails(){
     if(isset($_SESSION['cart_ids'])){
         $_SESSION['sub_total'] = 0;
         $_SESSION['cart_details'] = array();
-        $obj = new furniture();
+        $obj = new laptop();
         foreach($_SESSION['cart_ids'] as $key => $count){
-            $res = $obj->getProduct($key);
+            $res = $obj->getLaptop($key);
             $cart_row = $res->fetch_assoc();
             $_SESSION['cart_details'][$key] = $cart_row;
             $_SESSION['cart_details'][$key]['count'] = $count;
-            $_SESSION['cart_details'][$key]['itemTotal'] = ($count * $cart_row['cost']);
-            $_SESSION['sub_total'] += ($count * $cart_row['cost']);
+            $_SESSION['cart_details'][$key]['itemTotal'] = ($count * $cart_row['price']);
+            $_SESSION['sub_total'] += ($count * $cart_row['price']);
         }
     }
 }
