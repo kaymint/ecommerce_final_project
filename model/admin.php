@@ -7,6 +7,7 @@
  */
 
 require_once 'adb_object.php';
+require_once '../controller/security.php';
 
 class admin extends adb_object{
 
@@ -45,15 +46,31 @@ class admin extends adb_object{
     }
 
     /**
-     * @param $username
-     * @param $password
+     * @param $secret
+     * @param $key
+     * @return bool
+     */
+    function authenticateUser($secret, $key){
+
+        $result = $this->getUser($key);
+        $row = $result->fetch_assoc();
+
+        if(count($row) == 0){
+            return false;
+        }else{
+            $enc_key = $row['password'];
+            return verifyKey($secret, $enc_key);
+        }
+    }
+
+    /**
+     * @param $user
      * @return bool|mysqli_result
      */
-    function loginUser($username , $password){
-
-        $password = encrypt($password);
-
-        $str_query = "SELECT * FROM ecommerce_furniture.admin WHERE username = ? and password = ?";
+    public function getUser($user){
+        $str_query = "SELECT AU.username, AU.password
+                      FROM admin AU
+                      WHERE AU.username = ?";
 
         $stmt = $this->prepareQuery($str_query);
 
@@ -61,17 +78,13 @@ class admin extends adb_object{
             return false;
         }
 
-        $stmt->bind_param("ss", $username, $password);
+        $stmt->bind_param("s", $user);
 
         $stmt->execute();
 
         return $stmt->get_result();
     }
-}
 
-
-function encrypt($pass){
-    return md5($pass);
 }
 
 

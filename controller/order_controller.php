@@ -100,6 +100,9 @@ function pay(){
 }
 
 
+/**
+ *
+ */
 function orderConfirmation(){
     if(isset($_SESSION['rec_email'])){
 

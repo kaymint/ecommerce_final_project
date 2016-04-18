@@ -27,8 +27,8 @@ if(isset($_REQUEST['cmd'])){
 
 function login(){
     if(isset($_POST['user']) && isset($_POST['pass'])){
-        $user = $_POST['user'];
-        $pass = $_POST['pass'];
+        $user = sanitize_string($_POST['user']);
+        $pass = sanitize_string($_POST['pass']);
 
         echo $pass;
         $testObj = new admin();
