@@ -9,9 +9,11 @@
     <!-- Bootstrap 3.3.5 -->
     <link rel="stylesheet" href="bootstrap/css/bootstrap.min.css">
     <!-- Font Awesome -->
-    <link rel="stylesheet" href="../css/font-awesome.min.css">
+    <link rel="stylesheet" href="../customer_view/css/font-awesome.css">
     <!-- Ionicons -->
     <link rel="stylesheet" href="https://code.ionicframework.com/ionicons/2.0.1/css/ionicons.min.css">
+    <!-- daterange picker -->
+    <link rel="stylesheet" href="plugins/daterangepicker/daterangepicker-bs3.css">
     <!-- jvectormap -->
     <link rel="stylesheet" href="plugins/jvectormap/jquery-jvectormap-1.2.2.css">
     <!-- Theme style -->
@@ -19,6 +21,9 @@
     <!-- AdminLTE Skins. Choose a skin from the css/skins
          folder instead of downloading all of them to reduce the load. -->
     <link rel="stylesheet" href="dist/css/skins/_all-skins.min.css">
+
+    <!-- Select2 -->
+    <link rel="stylesheet" href="plugins/select2/select2.min.css">
 
     <link rel="stylesheet" href="style.css">
 
@@ -246,26 +251,26 @@
                             <table class="table table-hover">
                                 <tr>
                                     <th>ID</th>
-                                    <th>Name</th>
-                                    <th>Brand</th>
-                                    <th>Category</th>
-                                    <th>Cost</th>
+                                    <th>Product Name</th>
+                                    <th>OS</th>
+                                    <th>Special Features</th>
+                                    <th>Cost($)</th>
                                     <th>Onhand</th>
                                 </tr>
 
-                                {% for x in furniture %}
+                                {% for x in laptop %}
                                 <tr>
                                     <td>
                                         <a class="btn btn-social-icon btn-bitbucket"
-                                        href="update.php?fid={{ x.furniture_id }}">
+                                        href="update.php?fid={{ x.laptop_id }}">
                                             <i class="fa fa-edit"></i>
                                         </a>
                                     </td>
-                                    <td>{{ x.name }}</td>
-                                    <td>{{ x.brand_name }}</td>
-                                    <td>{{ x.category }}</td>
-                                    <td>{{ x.cost }}</td>
-                                    <td>{{ x.onhand }}</td>
+                                    <td>{{ x.product_name }}</td>
+                                    <td>{{ x.os }}</td>
+                                    <td>{{ x.special_features }}</td>
+                                    <td>{{ x.price }}</td>
+                                    <td>{{ x.qty }}</td>
                                 </tr>
                                 {% endfor %}
                             </table>
@@ -355,6 +360,13 @@
 <!-- Bootstrap 3.3.5 -->
 <script src="bootstrap/js/bootstrap.min.js"></script>
 
+<!-- Select2 -->
+<script src="plugins/select2/select2.full.min.js"></script>
+<!-- InputMask -->
+<script src="plugins/input-mask/jquery.inputmask.js"></script>
+<script src="plugins/input-mask/jquery.inputmask.date.extensions.js"></script>
+<script src="plugins/input-mask/jquery.inputmask.extensions.js"></script>
+
 <script src="script.js"></script>
 <!-- FastClick -->
 <script src="plugins/fastclick/fastclick.min.js"></script>
@@ -369,10 +381,55 @@
 <script src="plugins/slimScroll/jquery.slimscroll.min.js"></script>
 <!-- ChartJS 1.0.1 -->
 <script src="plugins/chartjs/Chart.min.js"></script>
+<!-- date-range-picker -->
+<script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.10.2/moment.min.js"></script>
+<script src="plugins/daterangepicker/daterangepicker.js"></script>
 <!-- AdminLTE dashboard demo (This is only for demo purposes) -->
 {#<script src="dist/js/pages/dashboard2.js"></script>#}
 <!-- AdminLTE for demo purposes -->
 <script src="dist/js/demo.js"></script>
+
+<script>
+    $(function () {
+        //Initialize Select2 Elements
+        $(".select2").select2();
+
+        //Datemask dd/mm/yyyy
+        $("#datemask").inputmask("yyyy-mm-dd", {"placeholder": "yyyy-mm-dd"});
+        //Datemask2 mm/dd/yyyy
+        $("#datemask2").inputmask("yyyy-mm-dd", {"placeholder": "yyyy-mm-dd"});
+        //Money Euro
+        $("[data-mask]").inputmask();
+
+        //Date range picker
+        $('#reservation').daterangepicker({timePicker: true, timePickerIncrement: 30, format: 'YYYY-MM-DD'});
+        //Date range picker with time picker
+        $('#reservationtime').daterangepicker({timePicker: true, timePickerIncrement: 30, format: 'YYYY/MM/DD h:mm A'});
+        //Date range as a button
+        $('#daterange-btn').daterangepicker(
+                {
+                    ranges: {
+                        'Today': [moment(), moment()],
+                        'Yesterday': [moment().subtract(1, 'days'), moment().subtract(1, 'days')],
+                        'Last 7 Days': [moment().subtract(6, 'days'), moment()],
+                        'Last 30 Days': [moment().subtract(29, 'days'), moment()],
+                        'This Month': [moment().startOf('month'), moment().endOf('month')],
+                        'Last Month': [moment().subtract(1, 'month').startOf('month'), moment().subtract(1, 'month').endOf('month')]
+                    },
+                    startDate: moment().subtract(29, 'days'),
+                    endDate: moment()
+                },
+                function (start, end) {
+                    $('#reportrange span').html(start.format('MMMM D, YYYY') + ' - ' + end.format('MMMM D, YYYY'));
+                }
+        );
+
+        //Timepicker
+        $(".timepicker").timepicker({
+            showInputs: false
+        });
+    });
+</script>
 
 
 </body>

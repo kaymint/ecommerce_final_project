@@ -28,13 +28,12 @@ if(isset($_REQUEST['cmd'])){
 
 
 function updateInventory(){
+
     if(isset($_POST['disp']) && isset($_POST['name']) && isset($_POST['brand'])
         && isset($_POST['hd']) && isset($_POST['ram']) && isset($_POST['proc']) && isset($_POST['col'])
         && isset($_POST['os']) && isset($_POST['lid'])){
 
         $laptop = new laptop();
-
-
 
         $display = $_POST['disp'];
         $brand_id = $_POST['brand'];
@@ -45,28 +44,25 @@ function updateInventory(){
         $color = $_POST['col'];
         $os = $_POST['os'];
         $special_features = $_POST['spec'];
-        $img = '';
-        if(isset($_SESSION['filepath'])){
-            $img = $_SESSION['filepath'];
-        }
         $qty = $_POST['onhand'];
         $cost = $_POST['cost'];
         $laptop_id = $_POST['lid'];
 
 
         $laptop->updateLaptop($brand_id, $display, $hard_drive, $processor, $ram, $os, $name, $color,
-                             $special_features, $img, $laptop_id);
+                             $special_features, $laptop_id);
         $res = $laptop->updateInventory($laptop_id, $qty,  $cost);
 
         if($res != false){
             $_SESSION['message'] = 'Updated Succesfully';
-            header("Location: ../customer_view/admin_page/home.php");
+            header("Location: ../admin_page/home.php");
         }else{
             $_SESSION['message'] = 'Update Unsuccesful';
-            header("Location: ../customer_view/admin_page/home.php");
+            header("Location: ../admin_page/home.php");
         }
     }
 }
+
 
 function addInventory(){
 

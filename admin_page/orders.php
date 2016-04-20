@@ -28,9 +28,18 @@ if (isset($_GET['page'])) {
 }
 
 $laptop = new laptop();
-$orders = new orders();
+$orders = new order();
 
-$result = $orders->getOrderCount();
+if(!isset($_REQUEST['date'])){
+    $date = date("Y-m-d")." - ". date("Y-m-d");
+
+}else{
+    $date = $_REQUEST['date'];
+}
+
+$params['date'] = $date;
+
+$result = $orders->getCountOrdersByDate($date);
 
 $count = $result->fetch_assoc();
 $numrows = $count['totalCount'];
@@ -53,9 +62,9 @@ $params['inventory_count'] = $numrows;
 //5
 $limit = 'LIMIT ' .($pageno - 1) * $rows_per_page .',' .$rows_per_page;
 
-$result = $orders->getOrders();
+$result = $orders->getOrdersByDate($date, $limit);
 
-//stock party
+//orders
 $stock = $result->fetch_all(MYSQLI_ASSOC);
 $params['orders'] = $stock;
 

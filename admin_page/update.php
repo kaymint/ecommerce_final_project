@@ -7,11 +7,11 @@
  */
 require_once 'valid_session_handler.php';
 
-require_once '../Twig-1.x/lib/Twig/Autoloader.php';
+require_once '../customer_view/Twig-1.x/lib/Twig/Autoloader.php';
 
-require_once '../../model/furniture.php';
+require_once '../model/laptop.php';
 
-require_once '../../model/orders.php';
+require_once '../model/orders.php';
 
 Twig_Autoloader::register();
 
@@ -22,8 +22,8 @@ $twig = new Twig_Environment($loader);
 $template =$twig->loadTemplate('update.html.twig');
 $params = array();
 
-$furniture = new furniture();
-$orders = new orders();
+$laptop = new laptop();
+$orders = new order();
 
 if(isset($_SESSION['message'])){
     $params['message'] = $_SESSION['message'];
@@ -33,7 +33,7 @@ if(isset($_SESSION['message'])){
 if(isset($_REQUEST['fid'])){
     $fid = intval($_REQUEST['fid']);
 
-    $result = $furniture->getProduct($fid);
+    $result = $laptop->getDetailedLaptop($fid);
     $prod = $result->fetch_assoc();
 
     $params['prod'] = $prod;
@@ -47,28 +47,44 @@ $params['order_count'] = $nOrders['numOrders'];
 
 
 //get sales
-$result = $orders->getNumOrders();
+$result = $orders->getNumSales();
 $nSales = $result->fetch_assoc();
 $params['sales_count'] = $nOrders['numSales'];
 
 
-//categories
-$result = $furniture->getCategories();
+//get oses
+$result = $laptop->getOS();
 $cat = $result->fetch_all(MYSQLI_ASSOC);
-$params['categories'] = $cat;
+$params['os'] = $cat;
+
 
 //brands
-$result = $furniture->getBrands();
+$result = $laptop->getBrands();
 $brands = $result->fetch_all(MYSQLI_ASSOC);
 $params['brands'] = $brands;
 
-//types
-$result = $furniture->getTypes();
+//processors
+$result = $laptop->getProcessor();
 $types = $result->fetch_all(MYSQLI_ASSOC);
-$params['types'] = $types;
+$params['processor'] = $types;
 
+//processors
+$result = $laptop->getHardDrive();
+$types = $result->fetch_all(MYSQLI_ASSOC);
+$params['hard_drive'] = $types;
+
+//display
+$result = $laptop->getDisplay();
+$types = $result->fetch_all(MYSQLI_ASSOC);
+$params['display'] = $types;
+
+//processors
+$result = $laptop->getRam();
+$types = $result->fetch_all(MYSQLI_ASSOC);
+$params['ram'] = $types;
 
 $params['currentPage'] = $_SERVER['PHP_SELF'];
+//$_SERVER['HTTP_REFERER']);
 
 $params['admin_username'] = $_SESSION['admin_username'];
 $params['admin_id'] = $_SESSION['admin_id'];

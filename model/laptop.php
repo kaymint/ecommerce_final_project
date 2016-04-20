@@ -111,7 +111,7 @@ class laptop extends adb_object
      * @return bool|mysqli_stmt
      */
     function updateLaptop($brand_id, $display, $hard_drive, $processor, $ram, $os, $name, $color,
-                             $special_features, $image, $laptop_id){
+                             $special_features, $laptop_id){
         //sql query
         $str_query = "UPDATE laptop
                         SET brand_id =  ?,
@@ -122,8 +122,7 @@ class laptop extends adb_object
                         os = ?,
                         name = ? ,
                         color = ?,
-                        special_features = ?,
-                        image = ?
+                        special_features = ?
                       WHERE laptop_id = ?";
 
         $stmt = $this->prepareQuery($str_query);
@@ -132,8 +131,8 @@ class laptop extends adb_object
             return false;
         }
 
-        $stmt->bind_param("iiiiiissssi", $brand_id, $display, $hard_drive, $processor, $ram, $os, $name,
-            $color, $special_features, $image, $laptop_id);
+        $stmt->bind_param("iiiiiisssi", $brand_id, $display, $hard_drive, $processor, $ram, $os, $name,
+            $color, $special_features, $laptop_id);
 
         $stmt->execute();
 
@@ -230,6 +229,151 @@ class laptop extends adb_object
      * Select Queries
      * ===============================================
      */
+
+
+    function getDetailedLaptop($laptop_id){
+        //sql query
+        $str_query = "SELECT
+                      B.brand_id,
+                      B.brand_name,
+                      L.laptop_id,
+                      D.size AS display_size,
+                      D.display_type,
+                      OS.os_name,
+                      P.processor_name,
+                      R.size AS ram,
+                      H.size AS hd_size,
+                      H.size_metric AS hd_metric,
+                      I.cost AS price,
+                      I.onhand AS qty,
+                      L.special_features AS special_features,
+                      L.image,
+                      L.color,
+                      L.name,
+                      L.laptop_id
+                    FROM laptop L
+                      INNER JOIN brand B
+                        ON L.brand_id = B.brand_id
+                      INNER JOIN hard_drive H
+                        ON L.hard_drive = H.drive_id
+                      INNER JOIN ram R
+                        ON L.ram = R.ram_id
+                      INNER JOIN display D
+                        ON L.display = D.display_id
+                      INNER JOIN os OS
+                        ON L.os = OS.os_id
+                      INNER JOIN processor P
+                        ON L.processor = P.processor_id
+                      INNER JOIN inventory I
+                        ON I.laptop_id = L.laptop_id
+                    WHERE L.laptop_id = ?   ";
+
+        $stmt = $this->prepareQuery($str_query);
+
+        if($stmt === false){
+            return false;
+        }
+
+        $stmt->bind_param("i", $laptop_id);
+
+        $stmt->execute();
+
+        return $stmt->get_result();
+    }
+
+
+    /**
+     * @return bool|mysqli_result
+     */
+    function getOS(){
+        //sql query
+        $str_query = "SELECT * FROM os";
+
+        $stmt = $this->prepareQuery($str_query);
+
+        if($stmt === false){
+            return false;
+        }
+
+        $stmt->execute();
+
+        return $stmt->get_result();
+    }
+
+    /**
+     * @return bool|mysqli_result
+     */
+    function getRam(){
+        //sql query
+        $str_query = "SELECT * FROM ram";
+
+        $stmt = $this->prepareQuery($str_query);
+
+        if($stmt === false){
+            return false;
+        }
+
+        $stmt->execute();
+
+        return $stmt->get_result();
+    }
+
+    /**
+     * @return bool|mysqli_result
+     */
+    function getProcessor(){
+        //sql query
+        $str_query = "SELECT * FROM processor";
+
+        $stmt = $this->prepareQuery($str_query);
+
+        if($stmt === false){
+            return false;
+        }
+
+        $stmt->execute();
+
+        return $stmt->get_result();
+    }
+
+    /**
+     * @return bool|mysqli_result
+     */
+    function getHardDrive(){
+        //sql query
+        $str_query = "SELECT * FROM hard_drive";
+
+        $stmt = $this->prepareQuery($str_query);
+
+        if($stmt === false){
+            return false;
+        }
+
+        $stmt->execute();
+
+        return $stmt->get_result();
+    }
+
+    /**
+     * @return bool|mysqli_result
+     */
+    function getDisplay(){
+        //sql query
+        $str_query = "SELECT * FROM display";
+
+        $stmt = $this->prepareQuery($str_query);
+
+        if($stmt === false){
+            return false;
+        }
+
+        $stmt->execute();
+
+        return $stmt->get_result();
+    }
+
+
+
 
     /**
      * @param $laptop_id

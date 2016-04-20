@@ -7,11 +7,11 @@
  */
 require_once 'valid_session_handler.php';
 
-require_once '../Twig-1.x/lib/Twig/Autoloader.php';
+require_once '../customer_view/Twig-1.x/lib/Twig/Autoloader.php';
 
-require_once '../../model/furniture.php';
+require_once '../model/laptop.php';
 
-require_once '../../model/orders.php';
+require_once '../model/orders.php';
 
 Twig_Autoloader::register();
 
@@ -27,10 +27,10 @@ if (isset($_GET['page'])) {
     $pageno = 1;
 }
 
-$furniture = new furniture();
-$orders = new orders();
+$laptop = new laptop();
+$orders = new order();
 
-$result = $furniture->getStockCount();
+$result = $laptop->getStockCount();
 
 $count = $result->fetch_assoc();
 $numrows = $count['totalCount'];
@@ -53,11 +53,11 @@ $params['inventory_count'] = $numrows;
 //5
 $limit = 'LIMIT ' .($pageno - 1) * $rows_per_page .',' .$rows_per_page;
 
-$result = $furniture->viewStock($limit);
+$result = $laptop->viewAllLaptops($limit);
 
 //stock party
 $stock = $result->fetch_all(MYSQLI_ASSOC);
-$params['furniture'] = $stock;
+$params['laptop'] = $stock;
 
 //get orders
 $result = $orders->getNumOrders();
@@ -66,7 +66,7 @@ $params['order_count'] = $nOrders['numOrders'];
 
 
 //get sales
-$result = $orders->getNumOrders();
+$result = $orders->getNumSales();
 $nSales = $result->fetch_assoc();
 $params['sales_count'] = $nOrders['numSales'];
 

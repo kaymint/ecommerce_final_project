@@ -126,7 +126,10 @@ class admin extends adb_object{
 
 
 //$testObj = new admin();
-//$result = $testObj->loginUser('N.Amanquah', 'N.Amanquah');
+//$result = $testObj->authenticateUser('Kenneth.Mensah', 'Kenneth.Mensah');
+//var_dump($result);
+//$lastname = twoWayDecrypt($result['lastname']);
+//var_dump($lastname);
 //$row = $result->fetch_all(MYSQLI_ASSOC);
 //var_dump($row);
 //
@@ -137,6 +140,4 @@ class admin extends adb_object{
 //}
 
 //$pass = $row[0]['password'];
-
-
-//$testObj->addAdmin('N.Amanquah', 'N.Amanquah', 'Nathan', 'Amanquah');
+//$testObj->addAdmin('Kenneth.Mensah', 'Kenneth.Mensah', 'Kenneth', 'Mensah');

@@ -12,13 +12,14 @@
                     <h3 class="box-title">Quick Example</h3>
                 </div><!-- /.box-header -->
                 <!-- form start -->
-                <form role="form" action="../../controller/furniture_controller.php" method="post">
+                <form role="form" action="../controller/laptop_controller.php" method="post">
                     <div class="box-body">
                         <input type="hidden" value="2" name="cmd">
+                        <input type="hidden" value="{{ prod.laptop_id }}" name="lid">
                         <div class="form-group">
-                            <label for="exampleInputEmail1">Name</label>
-                            <input type="text" required class="form-control" id="exampleInputEmail1" name="name" placeholder="Enter name"
-                            value="{{ prod.brand_name }} {{ prod.name }} {{ prod.furniture_type }}">
+                            <label for="exampleInputName">Name</label>
+                            <input type="text" required class="form-control" id="exampleInputName" name="name" placeholder="Enter name"
+                            value="{{ prod.name }}">
                         </div>
 
                         <!-- select -->
@@ -26,69 +27,133 @@
                             <label>Brand</label>
                             <select class="form-control" name="brand" required>
                                 {% for x in brands %}
-                                    <option value="{{ x.brand_id }}">{{ x.brand_name }}</option>
+                                    {% if prod.brand_name == x.brand_name %}
+                                        <option selected value="{{ x.brand_id }}">{{ x.brand_name }}</option>
+                                    {% else %}
+                                        <option value="{{ x.brand_id }}">{{ x.brand_name }}</option>
+                                    {% endif %}
                                 {% endfor %}
                             </select>
                         </div>
 
                         <!-- select -->
                         <div class="form-group">
-                            <label>Category</label>
-                            <select class="form-control" name="cat" required>
-                                {% for x in categories %}
-                                    <option value="{{ x.category_id }}">{{ x.category }}</option>
+                            <label>Display</label>
+                            <select class="form-control" name="disp" required>
+                                {% for x in display %}
+                                    {% if x.size == prod.display_size %}
+                                        <option selected value="{{ x.display_id }}">{{ x.size }} {{ x.display_type }}</option>
+                                        {% else %}
+                                            <option value="{{ x.display_id }}">{{ x.size }} {{ x.display_type }}</option>
+                                        {% endif %}
                                 {% endfor %}
                             </select>
                         </div>
 
                         <!-- select -->
                         <div class="form-group">
-                            <label>Furniture Type</label>
-                            <select class="form-control" name="type" required>
-                                {% for x in types %}
-                                    <option value="{{ x.furniture_type_id }}">{{ x.furniture_type }}</option>
+                            <label>Hard Drive</label>
+                            <select class="form-control" name="hd" required>
+                                {% for x in hard_drive %}
+                                    {% if x.size == prod.hd_size %}
+                                    <option selected value="{{ x.drive_id }}">{{ x.size }}{{ x.size_metric }}</option>
+                                        {% else %}
+                                            <option value="{{ x.drive_id }}">{{ x.size }}{{ x.size_metric }}</option>
+                                        {% endif %}
+                                {% endfor %}
+                            </select>
+                        </div>
+
+                        <!-- select -->
+                        <div class="form-group">
+                            <label>Processor</label>
+                            <select class="form-control" name="proc" required>
+                                {% for x in processor %}
+                                    {% if x.processor_name == prod.processor_name %}
+                                        <option selected value="{{ x.processor_id }}">{{ x.processor_name }}</option>
+                                        {% else  %}
+                                            <option value="{{ x.processor_id }}">{{ x.processor_name }}</option>
+                                        {% endif %}
+                                {% endfor %}
+                            </select>
+                        </div>
+
+                        <!-- select -->
+                        <div class="form-group">
+                            <label>Memory</label>
+                            <select class="form-control" name="ram" required>
+                                {% for x in ram %}
+
+                                    {% if x.size == prod.ram %}
+                                    <option selected value="{{ x.ram_id }}">{{ x.size }}</option>
+                                        {% else %}
+                                            <option value="{{ x.ram_id }}">{{ x.size }}</option>
+                                        {% endif %}
+                                {% endfor %}
+                            </select>
+                        </div>
+
+                        <!-- select -->
+                        <div class="form-group">
+                            <label>Operating System</label>
+                            <select class="form-control" name="os" required>
+                                {% for x in os %}
+
+                                    {% if x.os_name == prod.os_name %}
+                                        <option selected value="{{ x.os_id }}">{{ x.os_name }}</option>
+                                        {% else %}
+                                            <option value="{{ x.os_id }}">{{ x.os_name }}</option>
+                                        {% endif %}
                                 {% endfor %}
                             </select>
                         </div>
 
                         <div class="form-group">
-                            <label for="exampleInputPassword1">Cost</label>
-                            <input type="number" required class="form-control" id="exampleInputPassword1" name="cost" placeholder="Cost"
-                            value="{{ prod.cost }}">
+                            <label for="exampleInputPassword1">Color</label>
+                            <input type="text" class="form-control" required id="exampleInputPassword1" name="col" placeholder="Quantity"
+                                   value="{{ prod.color }}">
                         </div>
+
+
+                        <div class="form-group">
+                            <label for="exampleInputCost">Cost</label>
+                            <input type="number" required class="form-control" id="exampleInputCost" name="cost" placeholder="Cost"
+                            value="{{ prod.price }}">
+                        </div>
+
                         <!-- textarea -->
                         <div class="form-group">
-                            <label>Description</label>
-                            <textarea class="form-control" required rows="3" name="desc" placeholder="Enter Description">
-                                {{ prod.description }}
+                            <label>Special features</label>
+                            <textarea class="form-control" required rows="3" name="spec" placeholder="Enter Special features">
+                                {{ prod.special_features }}
                             </textarea>
                         </div>
 
                         <div class="form-group">
                             <label for="exampleInputPassword1">Quantity</label>
                             <input type="number" class="form-control" required id="exampleInputPassword1" name="onhand" placeholder="Quantity"
-                            value="{{ prod.onhand }}">
+                            value="{{ prod.qty }}">
                         </div>
                     </div><!-- /.box-body -->
 
                     <div class="box-footer">
                         <button type="reset" class="btn btn-primary">Cancel</button>
-                        <button type="submit" class="btn btn-primary">Add Inventory</button>
+                        <button type="submit" class="btn btn-primary">Update Product</button>
                     </div>
                 </form>
 
                 <form id="uploadimage" action="" method="post" enctype="multipart/form-data">
-                    <div id="image_preview"><img style="width: 300px; height: auto" class="col-sm-12" id="previewing" src="noimage.jpg" /></div>
+                    <div id="image_preview"><img style="width: 300px; height: auto" class="col-sm-12" id="previewing" src="../customer_view/{{ prod.image }}" /></div>
                     <hr id="line">
-                    <div class="form-group" id="selectImage">
-                        <label>Select Your Image</label><br/>
-                        <input type="file" name="file" id="file" required />
-                        <div id="message"></div>
-                        <!--                                            <input type="submit" value="Upload" class="submit" />-->
-                        <button type="submit" class="btn btn-app submit primary">
-                            <i class="fa fa-upload"></i> Upload
-                        </button>
-                    </div>
+                    {#<div class="form-group" id="selectImage">#}
+                        {#<label>Select Your Image</label><br/>#}
+                        {#<input type="file" name="file" id="file" required />#}
+                        {#<div id="message"></div>#}
+                        {#<!--                                            <input type="submit" value="Upload" class="submit" />-->#}
+                        {#<button type="submit" class="btn btn-app submit primary">#}
+                            {#<i class="fa fa-upload"></i> Upload#}
+                        {#</button>#}
+                    {#</div>#}
                 </form>
 
             </div><!-- /.box -->
@@ -109,7 +174,7 @@
                                 <img src="dist/img/default-50x50.gif" alt="Product Image">
                             </div>
                             <div class="product-info">
-                                <a href="javascript::;" class="product-title">Samsung TV <span class="label label-warning pull-right">$1800</span></a>
+                                <a href="javascript:;" class="product-title">Samsung TV <span class="label label-warning pull-right">$1800</span></a>
                         <span class="product-description">
                           Samsung 32" 1080p 60Hz LED Smart HDTV.
                         </span>
@@ -120,7 +185,7 @@
                                 <img src="dist/img/default-50x50.gif" alt="Product Image">
                             </div>
                             <div class="product-info">
-                                <a href="javascript::;" class="product-title">Bicycle <span class="label label-info pull-right">$700</span></a>
+                                <a href="javascript:;" class="product-title">Bicycle <span class="label label-info pull-right">$700</span></a>
                         <span class="product-description">
                           26" Mongoose Dolomite Men's 7-speed, Navy Blue.
                         </span>
@@ -131,27 +196,16 @@
                                 <img src="dist/img/default-50x50.gif" alt="Product Image">
                             </div>
                             <div class="product-info">
-                                <a href="javascript::;" class="product-title">Xbox One <span class="label label-danger pull-right">$350</span></a>
+                                <a href="javascript:;" class="product-title">Xbox One <span class="label label-danger pull-right">$350</span></a>
                         <span class="product-description">
                           Xbox One Console Bundle with Halo Master Chief Collection.
-                        </span>
-                            </div>
-                        </li><!-- /.item -->
-                        <li class="item">
-                            <div class="product-img">
-                                <img src="dist/img/default-50x50.gif" alt="Product Image">
-                            </div>
-                            <div class="product-info">
-                                <a href="javascript::;" class="product-title">PlayStation 4 <span class="label label-success pull-right">$399</span></a>
-                        <span class="product-description">
-                          PlayStation 4 500GB Console (PS4)
                         </span>
                             </div>
                         </li><!-- /.item -->
                     </ul>
                 </div><!-- /.box-body -->
                 <div class="box-footer text-center">
-                    <a href="javascript::;" class="uppercase">View All Products</a>
+                    <a href="javascript:;" class="uppercase">View All Products</a>
                 </div><!-- /.box-footer -->
             </div><!-- /.box -->
         </div>

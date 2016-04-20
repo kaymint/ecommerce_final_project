@@ -7,11 +7,11 @@
  */
 require_once 'valid_session_handler.php';
 
-require_once '../Twig-1.x/lib/Twig/Autoloader.php';
+require_once '../customer_view/Twig-1.x/lib/Twig/Autoloader.php';
 
-require_once '../../model/furniture.php';
+require_once '../model/laptop.php';
 
-require_once '../../model/orders.php';
+require_once '../model/orders.php';
 
 Twig_Autoloader::register();
 
@@ -22,8 +22,8 @@ $twig = new Twig_Environment($loader);
 $template =$twig->loadTemplate('add.html.twig');
 $params = array();
 
-$furniture = new furniture();
-$orders = new orders();
+$laptop = new laptop();
+$orders = new order();
 
 if(isset($_SESSION['message'])){
     $params['message'] = $_SESSION['message'];
@@ -41,20 +41,20 @@ $nSales = $result->fetch_assoc();
 $params['sales_count'] = $nOrders['numSales'];
 
 
-//categories
-$result = $furniture->getCategories();
-$cat = $result->fetch_all(MYSQLI_ASSOC);
-$params['categories'] = $cat;
-
-//brands
-$result = $furniture->getBrands();
-$brands = $result->fetch_all(MYSQLI_ASSOC);
-$params['brands'] = $brands;
-
-//types
-$result = $furniture->getTypes();
-$types = $result->fetch_all(MYSQLI_ASSOC);
-$params['types'] = $types;
+////categories
+//$result = $furniture->getCategories();
+//$cat = $result->fetch_all(MYSQLI_ASSOC);
+//$params['categories'] = $cat;
+//
+////brands
+//$result = $furniture->getBrands();
+//$brands = $result->fetch_all(MYSQLI_ASSOC);
+//$params['brands'] = $brands;
+//
+////types
+//$result = $furniture->getTypes();
+//$types = $result->fetch_all(MYSQLI_ASSOC);
+//$params['types'] = $types;
 
 
 $params['currentPage'] = $_SERVER['PHP_SELF'];
