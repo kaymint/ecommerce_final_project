@@ -7,11 +7,11 @@
  */
 require_once 'valid_session_handler.php';
 
-require_once '../Twig-1.x/lib/Twig/Autoloader.php';
+require_once '../customer_view/Twig-1.x/lib/Twig/Autoloader.php';
 
-require_once '../../model/furniture.php';
+require_once '../model/laptop.php';
 
-require_once '../../model/orders.php';
+require_once '../model/orders.php';
 
 Twig_Autoloader::register();
 
@@ -27,10 +27,19 @@ if (isset($_GET['page'])) {
     $pageno = 1;
 }
 
-$furniture = new furniture();
-$orders = new orders();
+$laptop = new laptop();
+$orders = new order();
 
-$result = $orders->getSalesCount();
+if(!isset($_REQUEST['date'])){
+    $date = date("Y-m-d")." - ". date("Y-m-d");
+
+}else{
+    $date = $_REQUEST['date'];
+}
+
+$params['date'] = $date;
+
+$result = $orders->getSalesCount($date);
 
 $count = $result->fetch_assoc();
 $numrows = $count['totalCount'];
@@ -53,11 +62,15 @@ $params['inventory_count'] = $numrows;
 //5
 $limit = 'LIMIT ' .($pageno - 1) * $rows_per_page .',' .$rows_per_page;
 
-$result = $orders->getSales();
+$result = $orders->getSalesByDate($date, $limit);
 
-//stock party
+//orders
 $stock = $result->fetch_all(MYSQLI_ASSOC);
 $params['sales'] = $stock;
+
+$result = $orders->getSalesTotal($date);
+$sum = $result->fetch_assoc();
+$params['totalSum'] = $sum['totalSum'];
 
 
 //get orders
@@ -65,10 +78,6 @@ $result = $orders->getNumOrders();
 $nOrders = $result->fetch_assoc();
 $params['order_count'] = $nOrders['numOrders'];
 
-//get Total Sales
-$result = $orders->getTotals();
-$nTotals = $result->fetch_assoc();
-$params['totalSales'] = $nTotals['totalSales'];
 
 //get sales
 $result = $orders->getNumSales();

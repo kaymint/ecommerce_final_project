@@ -38,7 +38,7 @@ function placeOrder(){
         $order = new order();
         $laptop = new laptop();
 
-        $total = $_SESSION['overallTotal'];
+        $total = doubleval($_SESSION['overallTotal']);
 
         $rec_email = $_POST['rec_email'];
         $rec_firstname = $_POST['rec_firstname'];
@@ -52,6 +52,7 @@ function placeOrder(){
 
         $order->addReceipt($total, $rec_address1, $rec_address2, $rec_phone, $rec_email, $rec_country, $rec_firstname, $rec_lastname);
         $rec_id = $order->get_insert_id();
+
 
         $params['receipt_id'] = $rec_id;
 
@@ -84,17 +85,16 @@ function placeOrder(){
 }
 
 function pay(){
-    if(isset($_POST['pay']) && isset($_POST['rid'])){
-        $pay = $_POST['pay'];
-        $card = $_POST['card'];
+    if(isset($_POST['rid'])){
+
         $rid = $_POST['rid'];
 
-        $orders = new orders();
-        $res = $orders->updateReceipt($rid, $pay, $card);
+        $orders = new order();
+        $res = $orders->updateReceipt($rid);
         if($res != false){
-            header("Location: ../customer_view/admin_page/sales.php");
+            header("Location: ../admin_page/sales.php");
         }else{
-            header("Location: ../customer_view/admin_page/order_details.php?rid={$rid}");
+            header("Location: ../order_details.php?rid={$rid}");
         }
     }
 }
@@ -153,7 +153,7 @@ function sendMail($cust_mail, $message, $cust_name, $subject){
     $mail->Port = 587;
     $mail->SMTPAuth = true;
     $mail->Username = 'kenneth.mensah@ashesi.edu.gh';
-    $mail->Password = 'kaymint145';
+    $mail->Password = 'kaymint146';
     $mail->setFrom('kenneth.mensah@ashesi.edu.gh', 'Best Notbooks');
     $mail->addAddress($cust_mail, $cust_name);
     $mail->Subject = $subject;

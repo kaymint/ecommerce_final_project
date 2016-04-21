@@ -42,12 +42,12 @@
 
 </head>
 <body>
-<!-- wpf loader Two -->
-<div id="wpf-loader-two">
-    <div class="wpf-loader-two-inner">
-        <span>Loading</span>
-    </div>
-</div>
+{#<!-- wpf loader Two -->#}
+{#<div id="wpf-loader-two">#}
+    {#<div class="wpf-loader-two-inner">#}
+        {#<span>Loading</span>#}
+    {#</div>#}
+{#</div>#}
 <!-- / wpf loader Two -->
 <!-- SCROLL TOP BUTTON -->
 <a class="scrollToTop" href="#"><i class="fa fa-chevron-up"></i></a>
@@ -103,8 +103,6 @@
                         <!-- / header top left -->
                         <div class="aa-header-top-right">
                             <ul class="aa-head-top-nav-right">
-                                <li><a href="#">My Account</a></li>
-                                <li class="hidden-xs"><a href="#">Wishlist</a></li>
                                 <li class="hidden-xs"><a href="cart.php">My Cart</a></li>
                                 <li class="hidden-xs"><a href="checkout.php">Checkout</a></li>
                                 <li><a href="" data-toggle="modal" data-target="#login-modal">Login</a></li>
@@ -170,8 +168,10 @@
                         <!-- / cart box -->
                         <!-- search box -->
                         <div class="aa-search-box">
-                            <form action="">
-                                <input type="text" name="" id="" placeholder="Search here ex. 'man' ">
+                            <form action="products.php" method="get">
+                                <input type="hidden" name="cmd" value="2">
+                                <input type="hidden" name="vt" value="2">
+                                <input type="text" name="st" id="" placeholder="Search here ex. 'man' ">
                                 <button type="submit"><span class="fa fa-search"></span></button>
                             </form>
                         </div>
@@ -206,13 +206,9 @@
                         <li><a href="home.php">Home</a></li>
                         <li><a href="#">Products <span class="caret"></span></a>
                             <ul class="dropdown-menu">
-                                <li><a href="#">Apple</a></li>
-                                <li><a href="#">Microsoft</a></li>
-                                <li><a href="#">Dell</a></li>
-                                <li><a href="#">HP</a></li>
-                                <li><a href="#">Asus</a></li>
-                                <li><a href="#">Toshiba</a></li>
-                                <li><a href="#">Lenovo</a></li>
+                                {% for x in brands %}
+                                <li><a href="products.php?cmd=1&brand={{ x.brand_id }}&vt=1">{{ x.brand_name }}</a></li>
+                                {% endfor %}
                             </ul>
                         </li>
                     </ul>
@@ -520,170 +516,18 @@
 <!-- popular section -->
 <!-- Support section -->
 {% block SUPPORT %}
-<section id="aa-support">
-    <div class="container">
-        <div class="row">
-            <div class="col-md-12">
-                <div class="aa-support-area">
-                    <!-- single support -->
-                    <div class="col-md-4 col-sm-4 col-xs-12">
-                        <div class="aa-support-single">
-                            <span class="fa fa-truck"></span>
-                            <h4>FREE SHIPPING</h4>
-                            <P>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Quam, nobis.</P>
-                        </div>
-                    </div>
-                    <!-- single support -->
-                    <div class="col-md-4 col-sm-4 col-xs-12">
-                        <div class="aa-support-single">
-                            <span class="fa fa-clock-o"></span>
-                            <h4>30 DAYS MONEY BACK</h4>
-                            <P>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Quam, nobis.</P>
-                        </div>
-                    </div>
-                    <!-- single support -->
-                    <div class="col-md-4 col-sm-4 col-xs-12">
-                        <div class="aa-support-single">
-                            <span class="fa fa-phone"></span>
-                            <h4>SUPPORT 24/7</h4>
-                            <P>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Quam, nobis.</P>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </div>
-</section>
+
 {% endblock %}
 <!-- / Support section -->
 <!-- Testimonial -->
 {% block TESTIMONIAL %}
-<section id="aa-testimonial">
-    <div class="container">
-        <div class="row">
-            <div class="col-md-12">
-                <div class="aa-testimonial-area">
-                    <ul class="aa-testimonial-slider">
-                        <!-- single slide -->
-                        <li>
-                            <div class="aa-testimonial-single">
-                                <img class="aa-testimonial-img" src="img/testimonial-img-2.jpg" alt="testimonial img">
-                                <span class="fa fa-quote-left aa-testimonial-quote"></span>
-                                <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Sunt distinctio omnis possimus, facere, quidem qui!consectetur adipisicing elit. Sunt distinctio omnis possimus, facere, quidem qui.</p>
-                                <div class="aa-testimonial-info">
-                                    <p>Allison</p>
-                                    <span>Designer</span>
-                                    <a href="#">Dribble.com</a>
-                                </div>
-                            </div>
-                        </li>
-                        <!-- single slide -->
-                        <li>
-                            <div class="aa-testimonial-single">
-                                <img class="aa-testimonial-img" src="img/testimonial-img-1.jpg" alt="testimonial img">
-                                <span class="fa fa-quote-left aa-testimonial-quote"></span>
-                                <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Sunt distinctio omnis possimus, facere, quidem qui!consectetur adipisicing elit. Sunt distinctio omnis possimus, facere, quidem qui.</p>
-                                <div class="aa-testimonial-info">
-                                    <p>KEVIN MEYER</p>
-                                    <span>CEO</span>
-                                    <a href="#">Alphabet</a>
-                                </div>
-                            </div>
-                        </li>
-                        <!-- single slide -->
-                        <li>
-                            <div class="aa-testimonial-single">
-                                <img class="aa-testimonial-img" src="img/testimonial-img-3.jpg" alt="testimonial img">
-                                <span class="fa fa-quote-left aa-testimonial-quote"></span>
-                                <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Sunt distinctio omnis possimus, facere, quidem qui!consectetur adipisicing elit. Sunt distinctio omnis possimus, facere, quidem qui.</p>
-                                <div class="aa-testimonial-info">
-                                    <p>Luner</p>
-                                    <span>COO</span>
-                                    <a href="#">Kinatic Solution</a>
-                                </div>
-                            </div>
-                        </li>
-                    </ul>
-                </div>
-            </div>
-        </div>
-    </div>
-</section>
+
 {% endblock %}
 <!-- / Testimonial -->
 
 <!-- Latest Blog -->
 {% block BLOG %}
-<section id="aa-latest-blog">
-    <div class="container">
-        <div class="row">
-            <div class="col-md-12">
-                <div class="aa-latest-blog-area">
-                    <h2>LATEST BLOG</h2>
-                    <div class="row">
-                        <!-- single latest blog -->
-                        <div class="col-md-4 col-sm-4">
-                            <div class="aa-latest-blog-single">
-                                <figure class="aa-blog-img">
-                                    <a href="#"><img src="img/promo-banner-1.jpg" alt="img"></a>
-                                    <figcaption class="aa-blog-img-caption">
-                                        <span href="#"><i class="fa fa-eye"></i>5K</span>
-                                        <a href="#"><i class="fa fa-thumbs-o-up"></i>426</a>
-                                        <a href="#"><i class="fa fa-comment-o"></i>20</a>
-                                        <span href="#"><i class="fa fa-clock-o"></i>June 26, 2016</span>
-                                    </figcaption>
-                                </figure>
-                                <div class="aa-blog-info">
-                                    <h3 class="aa-blog-title"><a href="#">Lorem ipsum dolor sit amet</a></h3>
-                                    <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Assumenda, ad? Autem quos natus nisi aperiam, beatae, fugiat odit vel impedit dicta enim repellendus animi. Expedita quas reprehenderit incidunt, voluptates corporis.</p>
-                                    <a href="#" class="aa-read-mor-btn">Read more <span class="fa fa-long-arrow-right"></span></a>
-                                </div>
-                            </div>
-                        </div>
-                        <!-- single latest blog -->
-                        <div class="col-md-4 col-sm-4">
-                            <div class="aa-latest-blog-single">
-                                <figure class="aa-blog-img">
-                                    <a href="#"><img src="img/promo-banner-3.jpg" alt="img"></a>
-                                    <figcaption class="aa-blog-img-caption">
-                                        <span href="#"><i class="fa fa-eye"></i>5K</span>
-                                        <a href="#"><i class="fa fa-thumbs-o-up"></i>426</a>
-                                        <a href="#"><i class="fa fa-comment-o"></i>20</a>
-                                        <span href="#"><i class="fa fa-clock-o"></i>June 26, 2016</span>
-                                    </figcaption>
-                                </figure>
-                                <div class="aa-blog-info">
-                                    <h3 class="aa-blog-title"><a href="#">Lorem ipsum dolor sit amet</a></h3>
-                                    <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Assumenda, ad? Autem quos natus nisi aperiam, beatae, fugiat odit vel impedit dicta enim repellendus animi. Expedita quas reprehenderit incidunt, voluptates corporis.</p>
-                                    <a href="#" class="aa-read-mor-btn">Read more <span class="fa fa-long-arrow-right"></span></a>
-                                </div>
-                            </div>
-                        </div>
-                        <!-- single latest blog -->
-                        <div class="col-md-4 col-sm-4">
-                            <div class="aa-latest-blog-single">
-                                <figure class="aa-blog-img">
-                                    <a href="#"><img src="img/promo-banner-1.jpg" alt="img"></a>
-                                    <figcaption class="aa-blog-img-caption">
-                                        <span href="#"><i class="fa fa-eye"></i>5K</span>
-                                        <a href="#"><i class="fa fa-thumbs-o-up"></i>426</a>
-                                        <a href="#"><i class="fa fa-comment-o"></i>20</a>
-                                        <span href="#"><i class="fa fa-clock-o"></i>June 26, 2016</span>
-                                    </figcaption>
-                                </figure>
-                                <div class="aa-blog-info">
-                                    <h3 class="aa-blog-title"><a href="#">Lorem ipsum dolor sit amet</a></h3>
-                                    <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Assumenda, ad? Autem quos natus nisi aperiam, beatae, fugiat odit vel impedit dicta enim repellendus animi. Expedita quas reprehenderit incidunt, voluptates corporis.</p>
-                                    <a href="#" class="aa-read-mor-btn">Read more <span class="fa fa-long-arrow-right"></span></a>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </div>
-</section>
+
 {% endblock %}
 <!-- / Latest Blog -->
 
@@ -717,22 +561,24 @@
 
 <!-- Subscribe section -->
 {% block SUBSCRIBE %}
-<section id="aa-subscribe">
-    <div class="container">
-        <div class="row">
-            <div class="col-md-12">
-                <div class="aa-subscribe-area">
-                    <h3>Subscribe our newsletter </h3>
-                    <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Ex, velit!</p>
-                    <form action="" class="aa-subscribe-form">
-                        <input type="email" name="" id="" placeholder="Enter your Email">
-                        <input type="submit" value="Subscribe">
-                    </form>
-                </div>
-            </div>
-        </div>
-    </div>
-</section>
+    <br>
+    <br>
+{#<section id="aa-subscribe">#}
+    {#<div class="container">#}
+        {#<div class="row">#}
+            {#<div class="col-md-12">#}
+                {#<div class="aa-subscribe-area">#}
+                    {#<h3>Subscribe our newsletter </h3>#}
+                    {#<p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Ex, velit!</p>#}
+                    {#<form action="" class="aa-subscribe-form">#}
+                        {#<input type="email" name="" id="" placeholder="Enter your Email">#}
+                        {#<input type="submit" value="Subscribe">#}
+                    {#</form>#}
+                {#</div>#}
+            {#</div>#}
+        {#</div>#}
+    {#</div>#}
+{#</section>#}
 {% endblock %}
 <!-- / Subscribe section -->
 
@@ -761,39 +607,37 @@
                             <div class="col-md-3 col-sm-6">
                                 <div class="aa-footer-widget">
                                     <div class="aa-footer-widget">
-                                        <h3>Knowledge Base</h3>
+                                        <h3>Legal Information</h3>
                                         <ul class="aa-footer-nav">
-                                            <li><a href="#">Delivery</a></li>
-                                            <li><a href="#">Returns</a></li>
-                                            <li><a href="#">Services</a></li>
-                                            <li><a href="#">Discount</a></li>
-                                            <li><a href="#">Special Offer</a></li>
+                                            <li><a href="tos.php">Terms of Service</a></li>
+                                            <li><a href="#">Disclaimer</a></li>
+                                            <li><a href="#">Waranty</a></li>
                                         </ul>
                                     </div>
                                 </div>
                             </div>
                             <div class="col-md-3 col-sm-6">
-                                <div class="aa-footer-widget">
-                                    <div class="aa-footer-widget">
-                                        <h3>Useful Links</h3>
-                                        <ul class="aa-footer-nav">
-                                            <li><a href="#">Site Map</a></li>
-                                            <li><a href="#">Search</a></li>
-                                            <li><a href="#">Advanced Search</a></li>
-                                            <li><a href="#">Suppliers</a></li>
-                                            <li><a href="#">FAQ</a></li>
-                                        </ul>
-                                    </div>
-                                </div>
+                                {#<div class="aa-footer-widget">#}
+                                    {#<div class="aa-footer-widget">#}
+                                        {#<h3>Useful Links</h3>#}
+                                        {#<ul class="aa-footer-nav">#}
+                                            {#<li><a href="#">Site Map</a></li>#}
+                                            {#<li><a href="#">Search</a></li>#}
+                                            {#<li><a href="#">Advanced Search</a></li>#}
+                                            {#<li><a href="#">Suppliers</a></li>#}
+                                            {#<li><a href="#">FAQ</a></li>#}
+                                        {#</ul>#}
+                                    {#</div>#}
+                                {#</div>#}
                             </div>
                             <div class="col-md-3 col-sm-6">
                                 <div class="aa-footer-widget">
                                     <div class="aa-footer-widget">
                                         <h3>Contact Us</h3>
                                         <address>
-                                            <p> 25 Astor Pl, NY 10003, USA</p>
-                                            <p><span class="fa fa-phone"></span>+1 212-982-4589</p>
-                                            <p><span class="fa fa-envelope"></span>dailyshop@gmail.com</p>
+                                            <p> 2 University Ave, GH</p>
+                                            <p><span class="fa fa-phone"></span>+233 200 393 945</p>
+                                            <p><span class="fa fa-envelope"></span>bestNotebooks@bestbooks.com</p>
                                         </address>
                                         <div class="aa-footer-social">
                                             <a href="#"><span class="fa fa-facebook"></span></a>
@@ -810,24 +654,24 @@
             </div>
         </div>
     </div>
-    <!-- footer-bottom -->
-    <div class="aa-footer-bottom">
-        <div class="container">
-            <div class="row">
-                <div class="col-md-12">
-                    <div class="aa-footer-bottom-area">
-                        <p>Designed by <a href="http://www.markups.io/">MarkUps.io</a></p>
-                        <div class="aa-footer-payment">
-                            <span class="fa fa-cc-mastercard"></span>
-                            <span class="fa fa-cc-visa"></span>
-                            <span class="fa fa-paypal"></span>
-                            <span class="fa fa-cc-discover"></span>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </div>
+    {#<!-- footer-bottom -->#}
+    {#<div class="aa-footer-bottom">#}
+        {#<div class="container">#}
+            {#<div class="row">#}
+                {#<div class="col-md-12">#}
+                    {#<div class="aa-footer-bottom-area">#}
+                        {#<p>Designed by <a href="http://www.markups.io/">MarkUps.io</a></p>#}
+                        {#<div class="aa-footer-payment">#}
+                            {#<span class="fa fa-cc-mastercard"></span>#}
+                            {#<span class="fa fa-cc-visa"></span>#}
+                            {#<span class="fa fa-paypal"></span>#}
+                            {#<span class="fa fa-cc-discover"></span>#}
+                        {#</div>#}
+                    {#</div>#}
+                {#</div>#}
+            {#</div>#}
+        {#</div>#}
+    {#</div>#}
 </footer>
 {% endblock %}
 <!-- / footer -->
@@ -878,6 +722,8 @@
 <script type="text/javascript" src="js/nouislider.js"></script>
 <!-- Custom js -->
 <script src="js/custom.js"></script>
+
+<script src="js/input_validation.js"></script>
 
 </body>
 </html>

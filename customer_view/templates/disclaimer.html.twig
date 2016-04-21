@@ -47,46 +47,45 @@
                                                         <div class="row">
                                                             <div class="col-md-6">
                                                                 <div class="aa-checkout-single-bill">
-                                                                    <input type="text" id="fName" name="rec_firstname" placeholder="First Name*" required>
+                                                                    <input type="text" name="rec_firstname" placeholder="First Name*" required>
                                                                 </div>
                                                             </div>
                                                             <div class="col-md-6">
                                                                 <div class="aa-checkout-single-bill">
-                                                                    <input type="text" id="lName" name="rec_lastname" placeholder="Last Name*" required>
+                                                                    <input type="text" name="rec_lastname" placeholder="Last Name*" required>
                                                                 </div>
                                                             </div>
                                                         </div>
                                                         <div class="row">
                                                             <div class="col-md-6">
                                                                 <div class="aa-checkout-single-bill">
-                                                                    <input type="email" id="email" name="rec_email" placeholder="Email Address*" required>
+                                                                    <input type="email" name="rec_email" placeholder="Email Address*" required>
                                                                 </div>
                                                             </div>
                                                             <div class="col-md-6">
                                                                 <div class="aa-checkout-single-bill">
-                                                                    <input type="tel" placeholder="Phone*" id="phone" name="rec_phone" required>
+                                                                    <input type="tel" placeholder="Phone*" name="rec_phone">
                                                                 </div>
                                                             </div>
                                                         </div>
                                                         <div class="row">
                                                             <div class="col-md-12">
                                                                 <div class="aa-checkout-single-bill">
-                                                                    <label for="rec_address1">Address</label>
-                                                                    <textarea cols="8" rows="3" name="rec_address1" required></textarea>
+                                                                    <textarea cols="8" rows="3" name="rec_address1">Address1*</textarea>
                                                                 </div>
                                                             </div>
                                                         </div>
                                                         <div class="row">
                                                             <div class="col-md-12">
                                                                 <div class="aa-checkout-single-bill">
-                                                                    <textarea cols="8" rows="3" name="rec_address2"></textarea>
+                                                                    <textarea cols="8" rows="3" name="rec_address2">Address2</textarea>
                                                                 </div>
                                                             </div>
                                                         </div>
                                                         <div class="row">
                                                             <div class="col-md-12">
                                                                 <div class="aa-checkout-single-bill">
-                                                                    <select name="rec_country" required>
+                                                                    <select name="rec_country">
                                                                         <option value="0">Select Your Country</option>
                                                                         <option value="Australia">Australia</option>
                                                                         <option value="Afganistan">Afganistan</option>
@@ -128,11 +127,11 @@
                                                 </thead>
                                                 <tbody>
                                                 {% for x in cartDetails %}
-                                                <tr>
-                                                    <td>{{ x.product_name }} <strong> x  {{ x.count }}</strong></td>
-                                                    <td>${{ x.itemTotal }}</td>
-                                                </tr>
-                                                    {% endfor %}
+                                                    <tr>
+                                                        <td>{{ x.product_name }} <strong> x  {{ x.count }}</strong></td>
+                                                        <td>${{ x.itemTotal }}</td>
+                                                    </tr>
+                                                {% endfor %}
                                                 </tbody>
                                                 <tfoot>
                                                 <tr>

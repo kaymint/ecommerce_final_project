@@ -10,7 +10,7 @@ require_once 'shopping_cart_control.php';
 
 require_once 'Twig-1.x/lib/Twig/Autoloader.php';
 
-require_once '../model/furniture.php';
+require_once '../model/laptop.php';
 
 Twig_Autoloader::register();
 

@@ -16,6 +16,21 @@
             <div class="box">
                 <div class="box-header">
                     <h3 class="box-title">Sales</h3>
+                    <!-- Date range -->
+                    <form action="sales.php" method="get">
+                        <div class="form-group">
+                            <label>Date range: {{ date }}</label>
+                            <div class="input-group col-xs-8">
+                                <div class="input-group-addon">
+                                    <i class="fa fa-calendar"></i>
+                                </div>
+                                <input required type="text" class="form-control pull-right" id="reservation" name="date">
+                                <div class="input-group-btn">
+                                    <button type="submit" class="btn btn-info">View Sales</button>
+                                </div><!-- /btn-group -->
+                            </div><!-- /.input group -->
+                        </div><!-- /.form group -->
+                    </form>
                     <div class="box-tools">
                         <div class="input-group" style="width: 150px;">
                             <input type="text" name="table_search" class="form-control input-sm pull-right" placeholder="Search">
@@ -41,9 +56,9 @@
                         {% for x in sales %}
                             <tr>
                                 <td>{{ x.receipt_id }}</td>
-                                <td>{{ x.product }}</td>
+                                <td>{{ x.product_name }}</td>
                                 <td>{{ x.recepient }}</td>
-                                <td>{{ x.shipping_address }}</td>
+                                <td>{{ x.shipping_address1 }}</td>
                                 <td>{{ x.qty }}</td>
                                 <td>${{ x.cost }}.00</td>
                                 <td>{{ x.date_ordered }}</td>
@@ -53,10 +68,13 @@
                     </table>
                     <div>
                         <h4 class="col-xs-3">Totals</h4>
-                        <h4 class="col-xs-3">${{ totalSales }}</h4>
+                        <h4 class="col-xs-3">${{ totalSum }}</h4>
                     </div>
                 </div><!-- /.box-body -->
                 <div class="box-footer clearfix">
+                    <div class="input-group-btn col-xs-7">
+                        <a href="#" class="btn btn-info">Generate PDF</a>
+                    </div><!-- /btn-group -->
                     <ul class="pagination pagination-sm no-margin pull-right">
                         {% if  totalPages > 0 %}
                             {% if page == 1 %}

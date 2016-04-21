@@ -103,7 +103,8 @@ function getCartItemDetails(){
             $_SESSION['cart_details'][$key] = $cart_row;
             $_SESSION['cart_details'][$key]['count'] = $count;
             $_SESSION['cart_details'][$key]['itemTotal'] = ($count * $cart_row['price']);
-            $_SESSION['sub_total'] += ($count * $cart_row['price']);
+            $_SESSION['sub_total'] += $_SESSION['cart_details'][$key]['itemTotal'];
+
         }
     }
 }

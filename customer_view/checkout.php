@@ -26,20 +26,21 @@ getCartItemDetails();
 $params['cartDetails'] = $_SESSION['cart_details'];
 $params['subTotal'] = $_SESSION['sub_total'];
 
+
 //discount
 if($_SESSION['sub_total'] > 1000){
-    $params['overallTotal'] = number_format(((($_SESSION['sub_total'] * .05) + $_SESSION['sub_total']) * .95),2);
+    $params['overallTotal'] = ((($_SESSION['sub_total'] * .05) + $_SESSION['sub_total']) * .95);
     $_SESSION['overallTotal'] = $params['overallTotal'];
     $params['discount'] = 5;
     $_SESSION['discount'] = 5;
-    $params['tax'] = number_format(($_SESSION['sub_total'] * .05), 2);
+    $params['tax'] = ($_SESSION['sub_total'] * .05);
     $_SESSION['tax'] = $params['tax'];
 }else{
-    $params['overallTotal'] = number_format((($_SESSION['sub_total'] * .05) + $_SESSION['sub_total']), 2) ;
+    $params['overallTotal'] = (($_SESSION['sub_total'] * .05) + $_SESSION['sub_total']) ;
     $_SESSION['overallTotal'] = $params['overallTotal'];
     $params['discount'] = 0;
     $_SESSION['discount'] = 0;
-    $params['tax'] = number_format(($_SESSION['sub_total'] * .05), 2);
+    $params['tax'] = ($_SESSION['sub_total'] * .05);
     $_SESSION['tax'] = $params['tax'];
 }
 

@@ -7,11 +7,11 @@
  */
 require_once 'valid_session_handler.php';
 
-require_once '../Twig-1.x/lib/Twig/Autoloader.php';
+require_once '../customer_view/Twig-1.x/lib/Twig/Autoloader.php';
 
-require_once '../../model/furniture.php';
+require_once '../model/laptop.php';
 
-require_once '../../model/orders.php';
+require_once '../model/orders.php';
 
 Twig_Autoloader::register();
 
@@ -21,7 +21,7 @@ $twig = new Twig_Environment($loader);
 $template =$twig->loadTemplate('order_details.html.twig');
 $params = array();
 
-$orders = new orders();
+$orders = new order();
 
 if(isset($_REQUEST['rid'])){
     $rid = intval($_REQUEST['rid']);

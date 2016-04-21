@@ -68,6 +68,10 @@ $result = $orders->getOrdersByDate($date, $limit);
 $stock = $result->fetch_all(MYSQLI_ASSOC);
 $params['orders'] = $stock;
 
+$result = $orders->getOrdersTotal($date);
+$sum = $result->fetch_assoc();
+$params['totalSum'] = $sum['totalSum'];
+
 
 //get orders
 $result = $orders->getNumOrders();
