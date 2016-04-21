@@ -9,6 +9,7 @@
 session_start();
 require_once '../model/orders.php';
 require_once '../model/laptop.php';
+require_once '../customer_view/validation_functions.php';
 
 if(isset($_REQUEST['cmd'])){
     $cmd = intval($_REQUEST['cmd']);
@@ -40,15 +41,26 @@ function placeOrder(){
 
         $total = doubleval($_SESSION['overallTotal']);
 
-        $rec_email = $_POST['rec_email'];
-        $rec_firstname = $_POST['rec_firstname'];
-        $rec_lastname = $_POST['rec_lastname'];
-        $rec_phone = $_POST['rec_phone'];
-        $rec_address1 = $_POST['rec_address1'];
-        $rec_address2 = $_POST['rec_address2'];
-        $rec_country = $_POST['rec_country'];
+        $rec_email = sanitize_string($_POST['rec_email']);
+        $rec_firstname = sanitize_string($_POST['rec_firstname']);
+        $rec_lastname = sanitize_string($_POST['rec_lastname']);
+        $rec_phone = sanitize_string($_POST['rec_phone']);
+        $rec_address1 = sanitize_string($_POST['rec_address1']);
+        $rec_address2 = sanitize_string($_POST['rec_address2']);
+        $rec_country = sanitize_string($_POST['rec_country']);
+
+        $validator = "";
+
+        $validator[]=validateFirstName($rec_firstname);
+        $validator[]=validateLastName($rec_lastname);
+        $validator[]=validateLastName($rec_email);
 
 
+        if(strlen($validator[0]) > 0){
+            $_SESSION['validationMessage'] = $validator;
+            $prev_page = $_SERVER['HTTP_REFERER'];
+            header("Location: {$prev_page}");
+        }
 
         $order->addReceipt($total, $rec_address1, $rec_address2, $rec_phone, $rec_email, $rec_country, $rec_firstname, $rec_lastname);
         $rec_id = $order->get_insert_id();
@@ -87,7 +99,7 @@ function placeOrder(){
 function pay(){
     if(isset($_POST['rid'])){
 
-        $rid = $_POST['rid'];
+        $rid = sanitize_string($_POST['rid']);
 
         $orders = new order();
         $res = $orders->updateReceipt($rid);
@@ -164,4 +176,13 @@ function sendMail($cust_mail, $message, $cust_name, $subject){
     }else{
         header("Location: ../customer_view/products.php");
     }
+}
+
+//sanitize command sent
+function sanitize_string($val){
+    $val = stripslashes($val);
+    $val = strip_tags($val);
+    $val = htmlentities($val);
+
+    return $val;
 }

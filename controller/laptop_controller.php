@@ -35,18 +35,18 @@ function updateInventory(){
 
         $laptop = new laptop();
 
-        $display = $_POST['disp'];
-        $brand_id = $_POST['brand'];
-        $hard_drive = $_POST['hd'];
-        $processor = $_POST['proc'];
-        $name = $_POST['name'];
-        $ram = $_POST['ram'];
-        $color = $_POST['col'];
-        $os = $_POST['os'];
-        $special_features = $_POST['spec'];
-        $qty = $_POST['onhand'];
-        $cost = $_POST['cost'];
-        $laptop_id = $_POST['lid'];
+        $display = sanitize_string($_POST['disp']);
+        $brand_id = sanitize_string($_POST['brand']);
+        $hard_drive = sanitize_string($_POST['hd']);
+        $processor = sanitize_string($_POST['proc']);
+        $name = sanitize_string($_POST['name']);
+        $ram = sanitize_string($_POST['ram']);
+        $color = sanitize_string($_POST['col']);
+        $os = sanitize_string($_POST['os']);
+        $special_features = sanitize_string($_POST['spec']);
+        $qty = sanitize_string($_POST['onhand']);
+        $cost = sanitize_string($_POST['cost']);
+        $laptop_id = sanitize_string($_POST['lid']);
 
 
         $laptop->updateLaptop($brand_id, $display, $hard_drive, $processor, $ram, $os, $name, $color,
@@ -104,4 +104,13 @@ function addInventory(){
             header("Location: ../customer_view/admin_page/add.php");
         }
     }
+}
+
+//sanitize command sent
+function sanitize_string($val){
+    $val = stripslashes($val);
+    $val = strip_tags($val);
+    $val = htmlentities($val);
+
+    return $val;
 }

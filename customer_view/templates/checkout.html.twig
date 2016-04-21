@@ -41,6 +41,13 @@
                                                             Shipping & Billing Details
                                                         </a>
                                                     </h4>
+                                                    <div class="container">
+                                                        {% if validation is defined %}
+                                                            {% for x in validation %}
+                                                                <span class="text-danger">{{ x }}</span><br>
+                                                            {% endfor %}
+                                                        {% endif %}
+                                                    </div>
                                                 </div>
                                                 <div class="panel-default">
                                                     <div class="panel-body">
