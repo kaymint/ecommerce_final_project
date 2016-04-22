@@ -1,6 +1,14 @@
 <?php
-error_reporting(E_ERROR | E_PARSE);
+//error_reporting(E_ERROR | E_PARSE);
+// A user-defined error handler function
+function myErrorHandler($errno, $errstr, $errfile, $errline) {
+    $message = "\n Custom error: [$errno] $errstr ";
+    $message .= "\n>> Error on line $errline in $errfile";
+    error_log($message, 3, "../customer_view/error.log");
+}
 
+// Set user-defined error handler function
+set_error_handler("myErrorHandler");
 /**
  * Created by PhpStorm.
  * User: StreetHustling
@@ -34,6 +42,8 @@ class adb_object{
         }
 
         if($this->mysqli->connect_errno){
+
+            trigger_error("Connection to database failed");
 
             printf("Connection failed %s\n", $this->mysqli->error);
             exit();
@@ -106,6 +116,8 @@ class adb_object{
         return $this->mysqli->close();
     }
 }
+
+$adb = new adb_object();
 
 
 

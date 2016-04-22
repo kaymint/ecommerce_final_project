@@ -53,46 +53,47 @@ function placeOrder(){
 
         $validator[]=validateFirstName($rec_firstname);
         $validator[]=validateLastName($rec_lastname);
-        $validator[]=validateLastName($rec_email);
+        $validator[]=validateEmail($rec_email);
 
 
         if(strlen($validator[0]) > 0){
             $_SESSION['validationMessage'] = $validator;
             $prev_page = $_SERVER['HTTP_REFERER'];
             header("Location: {$prev_page}");
-        }
+        }else {
 
-        $order->addReceipt($total, $rec_address1, $rec_address2, $rec_phone, $rec_email, $rec_country, $rec_firstname, $rec_lastname);
-        $rec_id = $order->get_insert_id();
-
-
-        $params['receipt_id'] = $rec_id;
-
-        $ind_item = $_SESSION['cart_details'];
-
-        $_SESSION['rec_email'] = $rec_email;
-        $_SESSION['rec_firstname'] = $rec_firstname;
-        $_SESSION['rec_lastname'] = $rec_lastname;
-        $_SESSION['rec_phone'] = $rec_phone;
-        $_SESSION['rec_address1'] = $rec_address1;
-        $_SESSION['rec_address2'] = $rec_address2;
-        $_SESSION['rec_country'] = $rec_country;
-        $_SESSION['receipt_id'] = $rec_id;
+            $order->addReceipt($total, $rec_address1, $rec_address2, $rec_phone, $rec_email, $rec_country, $rec_firstname, $rec_lastname);
+            $rec_id = $order->get_insert_id();
 
 
-        foreach($ind_item as $value){
-            $fid = $value['laptop_id'];
-            $cost = $value['itemTotal'];
-            $qty = $value['count'];
-            $onhand = $value['qty'] - $qty;
-            if($onhand < 0){
-                $onhand = 0;
+            $params['receipt_id'] = $rec_id;
+
+            $ind_item = $_SESSION['cart_details'];
+
+            $_SESSION['rec_email'] = $rec_email;
+            $_SESSION['rec_firstname'] = $rec_firstname;
+            $_SESSION['rec_lastname'] = $rec_lastname;
+            $_SESSION['rec_phone'] = $rec_phone;
+            $_SESSION['rec_address1'] = $rec_address1;
+            $_SESSION['rec_address2'] = $rec_address2;
+            $_SESSION['rec_country'] = $rec_country;
+            $_SESSION['receipt_id'] = $rec_id;
+
+
+            foreach ($ind_item as $value) {
+                $fid = $value['laptop_id'];
+                $cost = $value['itemTotal'];
+                $qty = $value['count'];
+                $onhand = $value['qty'] - $qty;
+                if ($onhand < 0) {
+                    $onhand = 0;
+                }
+                $res = $order->addOrder($rec_id, $fid, $cost, $qty);
+                $laptop->updateQuantity($fid, $onhand);
             }
-            $res = $order->addOrder($rec_id, $fid, $cost, $qty);
-            $laptop->updateQuantity($fid, $onhand);
-        }
 
-        orderConfirmation();
+            orderConfirmation();
+        }
     }
 }
 

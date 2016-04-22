@@ -1,0 +1,3 @@
+
+ Custom error: [2] mysqli::__construct(): (HY000/1049): Unknown database 'e_commerce_final1' 
+>> Error on line 35 in /Applications/XAMPP/xamppfiles/htdocs/e-commerce_projects/final_project/model/adb_object.php

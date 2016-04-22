@@ -14,7 +14,7 @@ function validateFirstName($input){
         return "** Nothing was entered for Firstname \r\n";
     }
     elseif(!preg_match($pattern, $input)){
-        return "** Please Enter Firstname\r\n";
+        return "** Firstname must start with Caps\r\n";
     }else{
         return "";
     }
@@ -26,7 +26,7 @@ function validateLastName($input){
         return "** Nothing was entered for Lastname \r\n";
     }
     elseif(!preg_match($pattern, $input)){
-        return "** Please Enter Lastname\r\n";
+        return "** Lastname must start with Caps\r\n";
     }else{
         return "";
     }

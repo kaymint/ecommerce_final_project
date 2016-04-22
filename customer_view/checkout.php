@@ -16,16 +16,15 @@ require_once '../model/orders.php';
 
 Twig_Autoloader::register();
 
-if(isset($_SESSION['validationMessage'])){
-    $params['validation'] = $_SESSION['validationMessage'];
-    unset($_SESSION['validationMessage']);
-}
-
-
 $loader = new Twig_Loader_Filesystem('templates');
 $twig = new Twig_Environment($loader);
 $template =$twig->loadTemplate('checkout.html.twig');
 $params = array();
+
+if(isset($_SESSION['validationMessage'])){
+    $params['validation'] = $_SESSION['validationMessage'];
+    unset($_SESSION['validationMessage']);
+}
 
 getCartItemDetails();
 $params['cartDetails'] = $_SESSION['cart_details'];
